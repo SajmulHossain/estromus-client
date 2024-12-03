@@ -1,9 +1,16 @@
+import { Outlet } from "react-router-dom"
+import Footer from "./mainComponents/Footer"
+import Header from "./mainComponents/Header"
 
 function App() {
 
   return (
     <>
-     
+     <Header />
+     <main className="max-w-screen-xl mx-auto px-4">
+      <Outlet />
+     </main>
+     <Footer />
     </>
   )
 }
