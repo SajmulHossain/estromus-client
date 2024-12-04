@@ -4,6 +4,8 @@ import Home from '../pages/Home'
 import Movies from '../pages/Movies'
 import AddMovies from '../pages/AddMovies'
 import Favorite from '../pages/Favorite'
+import Login from "../pages/Login";
+import Register from "../pages/Register";
 
 
 
@@ -26,6 +28,14 @@ const router = createBrowserRouter([{
     {
       path: '/favorites',
       element: <Favorite />
+    },
+    {
+      path: '/login',
+      element: <Login />
+    },
+    {
+      path: '/register',
+      element: <Register />
     }
   ]
 }])
