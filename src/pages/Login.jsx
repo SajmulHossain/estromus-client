@@ -11,8 +11,6 @@ const Login = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  console.log(location);
-
   const handleLogin = e => {
     e.preventDefault();
 
@@ -41,15 +39,12 @@ const Login = () => {
       title: "Logged in successfully",
     });
 
-    navigate(location?.state ? location.state : '/')
+    navigate(location?.state ? location.state : '/');
 
    })
    .catch(err => {
     setError(err.code);
-   })
-
-
-   
+   })   
 
   }
 
@@ -58,9 +53,26 @@ const Login = () => {
     signinWithGoogle()
       .then((res) => {
         setUser(res.user);
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          },
+        });
+        Toast.fire({
+          icon: "success",
+          title: "Registration successfull",
+        });
+
+        navigate(location?.state ? location.state : "/");
       })
       .catch((err) => {
-        console.log(err.code);
+        setError(err.code);
       });
   };
 
