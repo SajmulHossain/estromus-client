@@ -1,9 +1,13 @@
+import HomeSlider from "../components/HomeSlider";
+
 
 const Home = () => {
+ 
+
   return (
-    <div>
-      This is home
-    </div>
+    <section>
+      <HomeSlider />
+    </section>
   );
 };
 

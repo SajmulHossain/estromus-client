@@ -1,7 +1,11 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../contextProvider/AuthProvider";
+import googleIcon from '../assets/google.png'
 
 
 const Login = () => {
+  const { loginUser, setUser, signinWithGoogle } = useContext(AuthContext);
 
   const handleLogin = e => {
     e.preventDefault();
@@ -10,8 +14,30 @@ const Login = () => {
     const email = form.email.value;
     const password = form.password.value;
 
-    console.log(email,password);
+   loginUser(email, password)
+   .then(res => {
+    setUser(res.user);
+   })
+   .catch(err => {
+    console.log(err.code);
+   })
+
+
+   
+
   }
+
+
+  const handleSigninWithGoogle = () => {
+    signinWithGoogle()
+      .then((res) => {
+        setUser(res.user);
+      })
+      .catch((err) => {
+        console.log(err.code);
+      });
+  };
+
 
   return (
     <section className="min-h-screen">
@@ -51,11 +77,15 @@ const Login = () => {
               </label>
             </div>
             <div className="form-control mt-1">
-              <button className="btn btn-primary">Login</button>
+              <button type="submit" className="btn btn-primary">Login</button>
             </div>
             
             <p className="text-sm">Already have an account? <Link to='/register' className="italic font-semibold">Register</Link></p>
+          <div className="divider">or</div>
+
+          <button type="button" onClick={handleSigninWithGoogle} className="btn"><img src={googleIcon} className="h-6 w-6" alt="google icon" /> Continue with Google</button>
           </form>
+
         </div>
       </div>
     </section>
