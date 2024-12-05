@@ -1,9 +1,12 @@
 import { useContext } from "react";
 import { AuthContext } from "../contextProvider/AuthProvider";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Register = () => {
   const {createUser, setUser} = useContext(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -15,6 +18,23 @@ const Register = () => {
     createUser(email, password)
     .then(res => {
       setUser(res.user);
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        },
+      });
+      Toast.fire({
+        icon: "success",
+        title: "Registration successfull",
+      });
+
+      navigate(location?.state ? location.state : "/");
     })
     .catch(error => {
       console.log(error.code);
@@ -58,7 +78,7 @@ const Register = () => {
 
             <p className="text-sm">
               Already have an account?{" "}
-              <Link to="/login" className="italic font-semibold">
+              <Link to="/login" state={location?.state} className="italic font-semibold">
                 Login
               </Link>
             </p>

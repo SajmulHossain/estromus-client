@@ -1,11 +1,12 @@
 import { useContext } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../contextProvider/AuthProvider";
 import { FaRegUserCircle } from "react-icons/fa";
 
 const Header = () => {
   const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogout = () => {
     console.log('logging out');
@@ -56,7 +57,7 @@ const Header = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-50 mt-3 w-52 p-2 shadow"
             >
               {links}
             </ul>
@@ -71,7 +72,11 @@ const Header = () => {
         <div className="navbar-end flex items-center gap-3">
           <div>
             {user ? (
-              <img src={user?.photoURL} className="h-10 w-10 rounded-full" alt={`${user.displayName}'s photo`} />
+              <img
+                src={user?.photoURL}
+                className="h-10 w-10 rounded-full"
+                alt={`${user.displayName}'s photo`}
+              />
             ) : (
               <FaRegUserCircle size={30} />
             )}
@@ -82,9 +87,12 @@ const Header = () => {
                 Log Out
               </button>
             ) : (
-              <Link to="/login" className="btn">
-                Log in
-              </Link>
+              <div className="join">
+                <Link to="/login" state={location?.state} className="btn join-item">
+                  Log in
+                </Link>
+                <Link to='/register' state={location?.state} className="btn join-item">Register</Link>
+              </div>
             )}
           </div>
         </div>

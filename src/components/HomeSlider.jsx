@@ -24,7 +24,7 @@ const HomeSlider = () => {
       }}
       navigation={true}
       modules={[Autoplay, Pagination, Navigation]}
-      className="mySwiper"
+      className="mySwiper rounded-lg"
     >
       <SwiperSlide>
         <img src={slider1} className="object-cover w-full h-[400px]" alt="slider1" />

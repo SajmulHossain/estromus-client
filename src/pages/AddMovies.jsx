@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { IoAddOutline } from "react-icons/io5";
+import Swal from "sweetalert2";
 
 const AddMovies = () => {
   const [genreCount, setGenreCount] = useState([1]);
@@ -36,15 +37,31 @@ const AddMovies = () => {
       summary
     }
 
-    console.log(movie);
+    fetch('http://localhost:3000/movies',{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(movie)
+    })
+    .then(res => res.json())
+    .then(data => {
+      if(data.insertedId) {
+        Swal.fire({
+          title: "Yeah!",
+          text: "Movie Added Successfully",
+          icon: "success",
+        });
+      }
+    })
 
   }
 
   return (
-    <div className="bg-base-200 min-h-screen">
+    <section className="min-h-screen mt-8">
       <div className="flex-col">
         <div className="text-center">
-          <h1 className="text-3xl font-bold">Add Movies</h1>
+          <h1 className="text-3xl font-bold mb-4">Add Movies</h1>
         </div>
         <div className="card bg-base-100 w-full max-w-lg mx-auto shrink-0 shadow-2xl">
           <form onSubmit={handleMovieAdd} className="card-body">
@@ -143,7 +160,7 @@ const AddMovies = () => {
           </form>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
