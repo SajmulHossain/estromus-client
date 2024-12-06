@@ -21,6 +21,7 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+        loader: () => fetch("http://localhost:3000/featured"),
       },
       {
         path: "/movies",
@@ -42,7 +43,7 @@ const router = createBrowserRouter([
           <PrivetRoute>
             <Favorites />
           </PrivetRoute>
-        )
+        ),
       },
       {
         path: "/login",

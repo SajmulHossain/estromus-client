@@ -30,7 +30,7 @@ const AddMovies = () => {
     const summary = form.summary.value;
     const year = Number(form.year.value);
 
-    if(isNaN(rating)) {
+    if(isNaN(rating) || rating < 0 || rating > 5) {
       setRatingError("Please give a valid number input between 0 to 5")
       return;
     }
@@ -46,7 +46,6 @@ const AddMovies = () => {
       year,
     }
 
-    console.log(movie);
 
     fetch("http://localhost:3000/movies", {
       method: "POST",
@@ -117,7 +116,7 @@ const AddMovies = () => {
                     />
 
                     {idx === genreCount.length - 1 && (
-                      <button
+                      <button type="button"
                         onClick={handleGenreAdd}
                         className="bg-violet-700 rounded-lg p-1 px-2 btn-primary w-fit absolute right-2 top-1/2 -translate-y-1/2"
                       >
@@ -139,6 +138,7 @@ const AddMovies = () => {
                 className="input input-bordered [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                 name="duration"
                 required
+                min={60}
               />
             </div>
             <div className="form-control">
@@ -174,16 +174,16 @@ const AddMovies = () => {
               <label className="label">
                 <span className="label-text">Summary</span>
               </label>
-              <input
+              <textarea
                 type="text"
                 placeholder="Summary"
-                className="input input-bordered"
+                className="input py-3 input-bordered"
                 name="summary"
                 required
-              />
+              ></textarea>
             </div>
             <div className="form-control mt-6">
-              <button className="btn btn-primary">Add</button>
+              <button type="submit" className="btn btn-primary">Add</button>
             </div>
           </form>
         </div>

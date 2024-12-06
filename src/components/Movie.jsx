@@ -42,7 +42,7 @@ const Movie = ({ movie, setFavorite, allMovies }) => {
   };
   
   return (
-    <div className="rounded-lg p-4 border">
+    <div className="rounded-lg p-4 border flex flex-col justify-between">
       <div>
         <img
           src={poster}
@@ -63,12 +63,12 @@ const Movie = ({ movie, setFavorite, allMovies }) => {
         <p>
           <span className="font-medium">Duration: </span>
           <span className="text-gray-600">
-            {duration / 60}h {duration % 60}m
+            {parseInt(duration / 60)}h {duration % 60}m
           </span>
         </p>
       </div>
 
-      <div className="mt-2 gap-2">
+      <div className="mt-2 gap-2 grow">
         <p className=" text-xl font-semibold mb-2">Genre : </p>
         <div className="flex gap-2 flex-wrap">
           {genres.map((genre, idx) => (

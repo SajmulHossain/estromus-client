@@ -98,7 +98,7 @@ const Details = () => {
               <p>
                 <span className="font-medium">Duration: </span>
                 <span className="text-gray-600">
-                  {duration / 60}h {duration % 60}m
+                  {parseInt(duration / 60)}h {duration % 60}m
                 </span>
               </p>
             </div>
