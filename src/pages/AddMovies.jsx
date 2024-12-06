@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { IoAddOutline } from "react-icons/io5";
 import Swal from "sweetalert2";
+import { AuthContext } from "../contextProvider/AuthProvider";
 
 const AddMovies = () => {
   const [genreCount, setGenreCount] = useState([1]);
   const currentYear = new Date().getFullYear();
   const [ratingError, setRatingError] = useState('');
+  const { user } = useContext(AuthContext);
 
   const handleGenreAdd = () => {
     setGenreCount([...genreCount, 1]);
@@ -44,6 +46,9 @@ const AddMovies = () => {
       rating,
       summary,
       year,
+      author: {
+        email: user.email,
+      }
     }
 
 
@@ -85,6 +90,7 @@ const AddMovies = () => {
                 className="input input-bordered"
                 name="movie_name"
                 required
+                minLength={2}
               />
             </div>
             <div className="form-control">
@@ -92,7 +98,7 @@ const AddMovies = () => {
                 <span className="label-text">Poster URL</span>
               </label>
               <input
-                type="text"
+                type="url"
                 placeholder="Poster URL"
                 className="input input-bordered"
                 name="poster"
@@ -180,6 +186,7 @@ const AddMovies = () => {
                 className="input py-3 input-bordered"
                 name="summary"
                 required
+                minLength={10}
               ></textarea>
             </div>
             <div className="form-control mt-6">

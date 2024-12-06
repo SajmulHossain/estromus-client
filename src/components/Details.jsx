@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { CiStar } from "react-icons/ci";
 import { IoIosStar } from "react-icons/io";
 import Rating from "react-rating";
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../contextProvider/AuthProvider";
 
@@ -75,7 +75,7 @@ const Details = () => {
     
 
     return (
-      <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-purple-500 to-pink-500 p-6">
+      <div className="flex justify-center flex-col gap-6 items-center min-h-screen bg-gradient-to-r from-purple-500 to-pink-500 p-6">
         <div className="max-w-lg w-full bg-white rounded-lg overflow-hidden">
           <div className="relative">
             <img
@@ -133,21 +133,23 @@ const Details = () => {
             <p className="text-sm mb-8">{summary}</p>
 
             <div className="flex gap-2">
+              <Link className="btn btn-info w-1/3">Edit Movie</Link>
               <button
                 onClick={() => handleMovieDelele(_id)}
-                className="btn w-1/2 bg-red-500 text-white hover:text-black"
+                className="btn w-1/3 bg-red-500 text-white hover:text-black"
               >
                 Delete Movie
               </button>
               <button
                 onClick={handleAddToFavorite}
-                className="btn w-1/2 btn-success text-white"
+                className="btn w-1/3 btn-success text-white"
               >
                 Add to Favorite
               </button>
             </div>
           </div>
         </div>
+        <Link to='/movies' className="btn max-w-lg mx-auto w-full">All Movies</Link>
       </div>
     );
   };
