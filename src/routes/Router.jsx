@@ -3,12 +3,12 @@ import App from "../App";
 import Home from '../pages/Home'
 import Movies from '../pages/Movies'
 import AddMovies from '../pages/AddMovies'
-import Favorite from '../pages/Favorite'
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import PrivetRoute from "./PrivetRoute";
 import Error from "../pages/Error";
 import Details from "../components/Details";
+import Favorites from "../pages/Favorites";
 
 
 
@@ -40,9 +40,9 @@ const router = createBrowserRouter([
         path: "/favorites",
         element: (
           <PrivetRoute>
-            <Favorite />
+            <Favorites />
           </PrivetRoute>
-        ),
+        )
       },
       {
         path: "/login",
