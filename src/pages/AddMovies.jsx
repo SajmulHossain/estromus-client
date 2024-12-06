@@ -43,7 +43,8 @@ const AddMovies = () => {
       duration,
       rating,
       summary,
-      year
+      year,
+      isFavorite: false,
     }
 
     console.log(movie);

@@ -51,7 +51,7 @@ const Header = () => {
   </>
   return (
     <header className="max-w-screen-xl mx-auto px-4">
-      <nav className="navbar bg-base-100">
+      <nav className="navbar p-0 bg-base-100">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn lg:hidden">
@@ -93,7 +93,9 @@ const Header = () => {
                 alt={`${user.displayName}'s photo`}
               />
             ) : (
-              <FaRegUserCircle size={30} />
+              <div className={`${!user ? 'hidden md:block' : 'block'}`}>
+                <FaRegUserCircle size={30} />
+              </div>
             )}
 
             <span className="absolute w-[200px] text-center p-2 rounded-md bg-violet-700 z-50 text-white group-hover:top-10 -top-48 right-0 transition-all duration-300">

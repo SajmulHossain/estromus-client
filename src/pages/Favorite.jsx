@@ -1,9 +1,9 @@
 
 const Favorite = () => {
   return (
-    <div>
+    <section>
       this is favourite
-    </div>
+    </section>
   );
 };
 

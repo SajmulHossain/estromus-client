@@ -18,13 +18,13 @@ function App() {
 
   return (
     <>
-     <Header />
-     <main className="max-w-screen-xl mx-auto px-4">
-      <Outlet />
-     </main>
-     <Footer />
+      <Header />
+      <main className="">
+        <Outlet />
+      </main>
+      <Footer />
     </>
-  )
+  );
 }
 
 export default App
