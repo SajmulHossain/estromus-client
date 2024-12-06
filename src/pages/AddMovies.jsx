@@ -4,6 +4,8 @@ import Swal from "sweetalert2";
 
 const AddMovies = () => {
   const [genreCount, setGenreCount] = useState([1]);
+  const currentYear = new Date().getFullYear();
+  const [ratingError, setRatingError] = useState('');
 
   const handleGenreAdd = () => {
     setGenreCount([...genreCount, 1]);
@@ -23,9 +25,15 @@ const AddMovies = () => {
 
     const movie_name = form.movie_name.value;
     const poster = form.poster.value;
-    const duration = form.duration.value;
-    const rating = form.rating.value;
+    const duration = Number(form.duration.value);
+    const rating = Number(form.rating.value);
     const summary = form.summary.value;
+    const year = Number(form.year.value);
+
+    if(isNaN(rating)) {
+      setRatingError("Please give a valid number input between 0 to 5")
+      return;
+    }
 
 
     const movie = {
@@ -34,26 +42,29 @@ const AddMovies = () => {
       genres,
       duration,
       rating,
-      summary
+      summary,
+      year
     }
 
-    fetch('http://localhost:3000/movies',{
-      method: 'POST',
+    console.log(movie);
+
+    fetch("http://localhost:3000/movies", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(movie)
+      body: JSON.stringify(movie),
     })
-    .then(res => res.json())
-    .then(data => {
-      if(data.insertedId) {
-        Swal.fire({
-          title: "Yeah!",
-          text: "Movie Added Successfully",
-          icon: "success",
-        });
-      }
-    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.insertedId) {
+          Swal.fire({
+            title: "Yeah!",
+            text: "Movie Added Successfully",
+            icon: "success",
+          });
+        }
+      });
 
   }
 
@@ -120,14 +131,29 @@ const AddMovies = () => {
 
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Duration</span>
+                <span className="label-text">Duration (in minutes)</span>
               </label>
               <input
-                type="text"
+                type="number"
                 placeholder="Duration"
-                className="input input-bordered"
+                className="input input-bordered [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                 name="duration"
                 required
+              />
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Release Year</span>
+              </label>
+              <input
+                type="number"
+                placeholder="Release Year"
+                className="input input-bordered [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                name="year"
+                required
+                max={currentYear + 10}
+                defaultValue={currentYear}
+                min={1700}
               />
             </div>
             <div className="form-control">
@@ -141,6 +167,8 @@ const AddMovies = () => {
                 name="rating"
                 required
               />
+
+              {ratingError && <p className="text-sm mt-2 text-red-600">{ratingError}</p>}
             </div>
             <div className="form-control">
               <label className="label">

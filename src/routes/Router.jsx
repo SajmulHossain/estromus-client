@@ -7,6 +7,7 @@ import Favorite from '../pages/Favorite'
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import PrivetRoute from "./PrivetRoute";
+import Error from "../pages/Error";
 
 
 
@@ -14,6 +15,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    errorElement: <Error />,
     children: [
       {
         path: "/",
@@ -22,7 +24,7 @@ const router = createBrowserRouter([
       {
         path: "/movies",
         element: <Movies />,
-        loader: () => fetch("http://localhost:3000/movies"),
+        loader: () => fetch("https://ph-assignment-10-server-gray.vercel.app/movies"),
       },
       {
         path: "/add_movies",

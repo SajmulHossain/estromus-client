@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../contextProvider/AuthProvider";
 import googleIcon from '../assets/google.png'
@@ -6,15 +6,15 @@ import Swal from "sweetalert2";
 
 
 const Login = () => {
-  const { loginUser, setUser, signinWithGoogle } = useContext(AuthContext);
-  const [error, setError] = useState('');
+  const { loginUser, setUser, signinWithGoogle, setLoading } =
+    useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
 
   const handleLogin = e => {
     e.preventDefault();
 
-    setError('');
+    
 
     const form = e.target;
     const email = form.email.value;
@@ -43,7 +43,22 @@ const Login = () => {
 
    })
    .catch(err => {
-    setError(err.code);
+     setLoading(false);
+     const Toast = Swal.mixin({
+       toast: true,
+       position: "top-end",
+       showConfirmButton: false,
+       timer: 3000,
+       timerProgressBar: true,
+       didOpen: (toast) => {
+         toast.onmouseenter = Swal.stopTimer;
+         toast.onmouseleave = Swal.resumeTimer;
+       },
+     });
+     Toast.fire({
+       icon: "error",
+       title: err.code,
+     });
    })   
 
   }
@@ -66,13 +81,28 @@ const Login = () => {
         });
         Toast.fire({
           icon: "success",
-          title: "Registration successfull",
+          title: "Logged in successfully",
         });
 
         navigate(location?.state ? location.state : "/");
       })
       .catch((err) => {
-        setError(err.code);
+        setLoading(false);
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          },
+        });
+        Toast.fire({
+          icon: "error",
+          title: err.code,
+        });
       });
   };
 
@@ -83,7 +113,6 @@ const Login = () => {
         <div className="text-center">
           <h1 className="text-3xl font-bold">Login now!</h1>
         </div>
-        {error && <p className="text-red-600 text-xl">{error}</p>}
         <div className="card bg-base-100 w-full max-w-md shrink-0 shadow-2xl">
           <form onSubmit={handleLogin} className="card-body p-8">
             <div className="form-control">

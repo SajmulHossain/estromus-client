@@ -96,7 +96,7 @@ const Header = () => {
               <FaRegUserCircle size={30} />
             )}
 
-            <span className="absolute w-[200px] text-center p-2 rounded-md bg-violet-700 text-white group-hover:top-10 -top-48 right-0 transition-all duration-300">
+            <span className="absolute w-[200px] text-center p-2 rounded-md bg-violet-700 z-50 text-white group-hover:top-10 -top-48 right-0 transition-all duration-300">
               {user && user?.displayName
                 ? user.displayName
                 : "No user logged in"}

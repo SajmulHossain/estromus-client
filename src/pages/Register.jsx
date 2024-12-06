@@ -3,8 +3,11 @@ import { AuthContext } from "../contextProvider/AuthProvider";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
+import googleIcon from '../assets/google.png'
+
 const Register = () => {
-  const {createUser, setUser} = useContext(AuthContext);
+  const { createUser, setUser, updateUser, setLoading, signinWithGoogle } =
+    useContext(AuthContext);
   const [error, setError] = useState('');
   const location = useLocation();
   const navigate = useNavigate();
@@ -20,6 +23,8 @@ const Register = () => {
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
+    const name = form.name.value;
+    const photo = form.photo.value;
 
     if (password.length < 6) {
       setError("Password should be atleast 6 characters or more.");
@@ -36,42 +41,117 @@ const Register = () => {
         return;
       }
 
+      const userData = {
+        displayName: name,
+        photoURL: photo,
+      }
+
     createUser(email, password)
     .then(res => {
       setUser(res.user);
-      const Toast = Swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.onmouseenter = Swal.stopTimer;
-          toast.onmouseleave = Swal.resumeTimer;
-        },
-      });
-      Toast.fire({
-        icon: "success",
-        title: "Registration successfull",
-      });
+      updateUser(userData)
+      .then(() => {
+        navigate(location?.state ? location.state : "/");
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 2000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          },
+        });
+        Toast.fire({
+          icon: "success",
+          title: "Registration successfull",
+        });
+        
+      }).catch(err => {
+        setLoading(false);
+        Swal.fire({
+          title: "Error!",
+          text: err.code,
+          icon: "error",
+        });
+      })
+      
 
-      navigate(location?.state ? location.state : "/");
     })
     .catch(error => {
-      console.log(error.code);
+      setLoading(false);
+      Swal.fire({
+        title: "Error!",
+        text: error.code,
+        icon: "error",
+      });
     })
   };
+
+  const handleSigninWithGoogle = () => {
+    signinWithGoogle()
+      .then((res) => {
+        setUser(res.user);
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          },
+        });
+        Toast.fire({
+          icon: "success",
+          title: "Registration successfull",
+        });
+
+        navigate(location?.state ? location.state : "/");
+      })
+      .catch((err) => {
+        setLoading(false);
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          },
+        });
+        Toast.fire({
+          icon: "error",
+          title: err.code,
+        });
+      });
+  };
+
   return (
     <section className="min-h-screen">
       <div className="hero-content flex-col">
         <div className="text-center">
           <h1 className="text-3xl font-bold">Register now!</h1>
         </div>
-        {
-          error && <p className="text-red-600">{error}</p>
-        }
+        {error && <p className="text-red-600">{error}</p>}
         <div className="card bg-base-100 w-full max-w-md shrink-0 shadow-2xl">
           <form onSubmit={handleRegister} className="card-body p-8">
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Name</span>
+              </label>
+              <input
+                type="text"
+                placeholder="Name"
+                name="name"
+                className="input input-bordered"
+                required
+              />
+            </div>
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Email</span>
@@ -80,6 +160,18 @@ const Register = () => {
                 type="email"
                 placeholder="Email"
                 name="email"
+                className="input input-bordered"
+                required
+              />
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Photo URL</span>
+              </label>
+              <input
+                type="text"
+                placeholder="Photo URL"
+                name="photo"
                 className="input input-bordered"
                 required
               />
@@ -102,12 +194,25 @@ const Register = () => {
 
             <p className="text-sm">
               Already have an account?{" "}
-              <Link to="/login" state={location?.state} className="italic font-semibold">
+              <Link
+                to="/login"
+                state={location?.state}
+                className="italic font-semibold"
+              >
                 Login
               </Link>
             </p>
-          </form>
+            <div className="divider">or</div>
 
+            <button
+              type="button"
+              onClick={handleSigninWithGoogle}
+              className="btn"
+            >
+              <img src={googleIcon} className="h-6 w-6" alt="google icon" />{" "}
+              Continue with Google
+            </button>
+          </form>
         </div>
       </div>
     </section>
