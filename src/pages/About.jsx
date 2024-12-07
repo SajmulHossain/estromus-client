@@ -37,7 +37,7 @@ const About = () => {
           paragraph="At Estromus, our goal is to revolutionize the way you discover and enjoy movies."
         />
 
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto w-full">
           <table>
             <tbody>
               <tr data-aos="fade-right">
@@ -48,7 +48,7 @@ const About = () => {
                   movies across all genres, languages, and cultures.
                 </td>
               </tr>
-              <tr data-aos="fade-left">
+              <tr data-aos="fade-down">
                 <th>2</th>
                 <td>Foster a Community</td>
                 <td>
@@ -73,7 +73,7 @@ const About = () => {
                   effortless.
                 </td>
               </tr>
-              <tr data-aos="fade-left">
+              <tr data-aos="fade-down">
                 <th>5</th>
                 <td>Celebrate Cinema</td>
                 <td>
