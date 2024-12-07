@@ -8,13 +8,25 @@ const Movies = () => {
   const data = useLoaderData();
 
   const [movies, setMovies] = useState(data);
+
+  const handleSearch = e => {
+    const value = e.target.value;
+
+    fetch(
+      `https://ph-assignment-10-server-gray.vercel.app/movies?queryText=${value}`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setMovies(data);
+      });
+  }
   return (
     <section>
       <Heading head="Movies" paragraph="Explore all movies" />
 
       <div className="flex justify-center my-8 max-w-screen-md mx-auto">
         <label className="input input-bordered w-full flex items-center gap-2">
-          <input type="text" className="w-full" placeholder="Search" />
+          <input type="text" onChange={handleSearch} className="w-full" placeholder="Search" />
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 16 16"
