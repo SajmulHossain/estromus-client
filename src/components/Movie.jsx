@@ -49,7 +49,7 @@ const Movie = ({ movie, setFavorite, allMovies }) => {
   
   return (
     <div className="rounded-lg p-4 border flex flex-col justify-between">
-      <div data-aos="fade-down-left">
+      <div data-aos="fade-down">
         <img
           src={poster}
           className="rounded-md w-full h-[250px] md:h-[300px] object-cover"
@@ -58,24 +58,24 @@ const Movie = ({ movie, setFavorite, allMovies }) => {
       </div>
 
       <div className="mt-4  text-xl">
-        <h3 className="font-bold text-2xl">{movie_name}</h3>
+        <h3 className="font-bold text-2xl dark:text-gray-200">{movie_name}</h3>
       </div>
 
       <div className="flex gap-6 items-center mb-2 mt-4">
         <p>
-          <span className="font-medium">Released: </span>
-          <span className="text-gray-600">{year}</span>
+          <span className="font-medium dark:text-gray-200">Released: </span>
+          <span className="text-gray-600 dark:text-gray-400">{year}</span>
         </p>
         <p>
-          <span className="font-medium">Duration: </span>
-          <span className="text-gray-600">
+          <span className="font-medium dark:text-gray-200">Duration: </span>
+          <span className="text-gray-600 dark:text-gray-400">
             {parseInt(duration / 60)}h {duration % 60}m
           </span>
         </p>
       </div>
 
       <div className="mt-2 gap-2 grow">
-        <p className=" text-xl font-semibold mb-2">Genre : </p>
+        <p className=" text-xl font-semibold mb-2 dark:text-gray-200">Genre : </p>
         <div className="flex gap-2 flex-wrap">
           {genres.map((genre, idx) => (
             <p
@@ -89,7 +89,7 @@ const Movie = ({ movie, setFavorite, allMovies }) => {
       </div>
 
       <div className="mt-4">
-        <p className=" text-xl font-semibold mb-1">Rating : </p>
+        <p className=" text-xl font-semibold mb-1 dark:text-gray-200">Rating : </p>
         <div className="flex items-center gap-2">
           <Rating
             className="text-3xl flex items-center"

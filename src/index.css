@@ -10,7 +10,7 @@
   }
 
   table, td, th {
-    @apply border;
+    @apply border dark:text-black;
   }
 
   th, td {

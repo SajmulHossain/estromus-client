@@ -5,7 +5,7 @@ const About = () => {
     <section>
       <div className="flex flex-col items-center justify-center mt-4">
         <h2 className="font-bold text-4xl">Estromus</h2>
-        <p className="text-gray-500 font-semibold">A movie sharing platform</p>
+        <p className="text-gray-500 font-semibold dark:text-gray-400">A movie sharing platform</p>
       </div>
 
       <p className="mt-8">
