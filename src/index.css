@@ -29,3 +29,13 @@
     @apply bg-violet-300;
   }
 }
+
+@layer utilities {
+  .active1 {
+    @apply !bg-violet-700 !text-white;
+  }
+
+  .pending {
+    @apply bg-red-400 text-white;
+  }
+}

@@ -78,7 +78,7 @@ const router = createBrowserRouter([
           </PrivetRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/update/${params.id}`),
+          fetch(`/movies/${params.id}`),
       },
     ],
   },

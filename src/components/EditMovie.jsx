@@ -61,7 +61,7 @@ const EditMovie = () => {
     };
 
 
-    fetch(`http://localhost:3000/movies/${_id}`,{
+    fetch(`https://ph-assignment-10-server-gray.vercel.app/movies/${_id}`,{
       method: "PUT",
       headers: {
         'Content-Type': 'application/json',
@@ -77,13 +77,19 @@ const EditMovie = () => {
           icon: "success",
         });
         navigate(`/details/${_id}`);
+      } else {
+        Swal.fire({
+          title: "Opps!",
+          text: "Movie Information Couldn't Updated",
+          icon: "error",
+        });
       }
     })
     
   }
 
   return (
-    <section className="min-h-screen mt-8">
+    <section className="min-h-screen my-8">
       <div className="flex-col">
         <div className="text-center">
           <h1 className="text-3xl font-bold mb-4">Add Movies</h1>
