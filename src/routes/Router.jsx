@@ -1,8 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
-import Home from '../pages/Home'
-import Movies from '../pages/Movies'
-import AddMovies from '../pages/AddMovies'
+import Home from "../pages/Home";
+import Movies from "../pages/Movies";
+import AddMovies from "../pages/AddMovies";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import PrivetRoute from "./PrivetRoute";
@@ -10,8 +10,7 @@ import Error from "../pages/Error";
 import Details from "../components/Details";
 import Favorites from "../pages/Favorites";
 import About from "../pages/About";
-
-
+import EditMovie from "../components/EditMovie";
 
 const router = createBrowserRouter([
   {
@@ -22,7 +21,8 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
-        loader: () => fetch("https://ph-assignment-10-server-gray.vercel.app/featured"),
+        loader: () =>
+          fetch("https://ph-assignment-10-server-gray.vercel.app/featured"),
       },
       {
         path: "/movies",
@@ -47,8 +47,8 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: '/about',
-        element: <About />
+        path: "/about",
+        element: <About />,
       },
       {
         path: "/login",
@@ -66,7 +66,19 @@ const router = createBrowserRouter([
           </PrivetRoute>
         ),
         loader: ({ params }) =>
-          fetch(`https://ph-assignment-10-server-gray.vercel.app/movies/${params.id}`),
+          fetch(
+            `https://ph-assignment-10-server-gray.vercel.app/movies/${params.id}`
+          ),
+      },
+      {
+        path: "/update/:id",
+        element: (
+          <PrivetRoute>
+            <EditMovie />
+          </PrivetRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/update/${params.id}`),
       },
     ],
   },

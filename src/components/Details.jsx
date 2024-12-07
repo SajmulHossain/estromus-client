@@ -133,6 +133,7 @@ const Details = () => {
 
           <div className="flex justify-between join">
             <Link
+              to={`/update/${_id}`}
               data-aos="fade-right"
               className="btn join-item btn-info w-1/3"
             >
