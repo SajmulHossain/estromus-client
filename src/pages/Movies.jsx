@@ -25,7 +25,7 @@ const Movies = () => {
       <Heading head="Movies" paragraph="Explore all movies" />
 
       <div className="flex justify-center my-8 max-w-screen-md mx-auto">
-        <label className="input input-bordered w-full flex items-center gap-2">
+        <label className="input input-bordered border-violet-600 w-full flex items-center gap-2">
           <input type="text" onChange={handleSearch} className="w-full" placeholder="Search" />
           <svg
             xmlns="http://www.w3.org/2000/svg"
