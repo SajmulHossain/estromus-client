@@ -48,6 +48,9 @@ const Header = () => {
     <li>
       <NavLink to='/favorites'>My Favorites</NavLink>
     </li>
+    <li>
+      <NavLink to='/about'>About Us</NavLink>
+    </li>
   </>
   return (
     <header className="max-w-screen-xl mx-auto px-4">

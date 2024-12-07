@@ -133,7 +133,12 @@ const Register = () => {
 
   return (
     <section className="min-h-screen">
-      <div className="hero-content flex-col">
+      <div
+        className="hero-content flex-col"
+        data-aos="flip-left"
+        data-aos-easing="ease-out-cubic"
+        data-aos-duration="1000"
+      >
         <div className="text-center">
           <h1 className="text-3xl font-bold">Register now!</h1>
         </div>

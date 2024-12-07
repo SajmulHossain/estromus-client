@@ -20,7 +20,7 @@ const Movie = ({ movie, setFavorite, allMovies }) => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/favorites/${id}`,{
+        fetch(`https://ph-assignment-10-server-gray.vercel.app/favorites/${id}`,{
           method: 'DELETE'
         })
         .then(res => res.json())
@@ -35,6 +35,12 @@ const Movie = ({ movie, setFavorite, allMovies }) => {
               icon: "success",
             });
             setFavorite(remainingFav);
+          } else {
+            Swal.fire({
+              title: "Couldn't Delete!",
+              text: "Something went wrong.",
+              icon: "error",
+            });
           }
         })
       }
@@ -43,7 +49,7 @@ const Movie = ({ movie, setFavorite, allMovies }) => {
   
   return (
     <div className="rounded-lg p-4 border flex flex-col justify-between">
-      <div>
+      <div data-aos="fade-down-left">
         <img
           src={poster}
           className="rounded-md w-full h-[250px] md:h-[300px] object-cover"
@@ -55,7 +61,7 @@ const Movie = ({ movie, setFavorite, allMovies }) => {
         <h3 className="font-bold text-2xl">{movie_name}</h3>
       </div>
 
-      <div className="flex gap-6 items-center mb-6 mt-4">
+      <div className="flex gap-6 items-center mb-2 mt-4">
         <p>
           <span className="font-medium">Released: </span>
           <span className="text-gray-600">{year}</span>
@@ -98,7 +104,7 @@ const Movie = ({ movie, setFavorite, allMovies }) => {
         </div>
       </div>
 
-      <div className="mt-4">
+      <div data-aos="fade-up-right" className="mt-4">
         {pathname === "/favorites" ? (
           <button
             onClick={() => handleDeleteFromFavorites(id)}

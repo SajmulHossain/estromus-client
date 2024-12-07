@@ -9,6 +9,7 @@ import PrivetRoute from "./PrivetRoute";
 import Error from "../pages/Error";
 import Details from "../components/Details";
 import Favorites from "../pages/Favorites";
+import About from "../pages/About";
 
 
 
@@ -21,7 +22,7 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
-        loader: () => fetch("http://localhost:3000/featured"),
+        loader: () => fetch("https://ph-assignment-10-server-gray.vercel.app/featured"),
       },
       {
         path: "/movies",
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: '/about',
+        element: <About />
+      },
+      {
         path: "/login",
         element: <Login />,
       },
@@ -61,7 +66,7 @@ const router = createBrowserRouter([
           </PrivetRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/movies/${params.id}`),
+          fetch(`https://ph-assignment-10-server-gray.vercel.app/movies/${params.id}`),
       },
     ],
   },

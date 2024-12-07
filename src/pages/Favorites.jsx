@@ -9,7 +9,7 @@ const Favorites = () => {
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/favorites?userEmail=${user.email}`)
+    fetch(`https://ph-assignment-10-server-gray.vercel.app/favorites?userEmail=${user.email}`)
     .then(res => res.json())
     .then(data => {
       setFavorite(data);

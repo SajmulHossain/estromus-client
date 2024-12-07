@@ -8,4 +8,24 @@
   section {
     @apply max-w-screen-xl mx-auto px-4;
   }
+
+  table, td, th {
+    @apply border;
+  }
+
+  th, td {
+    @apply px-4 py-2;
+  }
+
+  tr > td:nth-child(2n+2) {
+    @apply font-bold;
+  }
+
+  tr:nth-child(2n+1) {
+    @apply bg-violet-400;
+  }
+
+  tr:nth-child(2n) {
+    @apply bg-violet-300;
+  }
 }

@@ -1,12 +1,23 @@
 import { Outlet } from "react-router-dom"
 import Footer from "./mainComponents/Footer"
 import Header from "./mainComponents/Header"
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "./contextProvider/AuthProvider";
+import Aos from "aos";
+import "aos/dist/aos.css";
 
 function App() {
 
    const { loading } = useContext(AuthContext);
+
+   useEffect(() => {
+     Aos.init({
+       duration: 500, 
+       offset: 50, 
+       easing: "ease",
+       once: false, 
+     });
+   }, []);
 
    if (loading) {
      return (
