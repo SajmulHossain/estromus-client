@@ -1,5 +1,4 @@
 import { useContext, useState } from "react";
-import { IoAddOutline } from "react-icons/io5";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { AuthContext } from "../contextProvider/AuthProvider";
 import Swal from "sweetalert2";
@@ -8,24 +7,12 @@ const EditMovie = () => {
   const navigate = useNavigate();
   const {user} = useContext(AuthContext)
   const movie = useLoaderData();
-  const { _id, movie_name, poster, genres, duration, rating, summary, year } = movie;
+  const { _id, movie_name, poster, genre, duration, rating, summary, year } = movie;
 
-  const [genreCount, setGenreCount] = useState(genres);
   const [error, setError] = useState('');
-
-  const handleGenreAdd = () => {
-    setGenreCount([...genreCount,''])
-  }
 
   const handleMovieEdit = e => {
     e.preventDefault();
-
-    const genreInput = document.querySelectorAll('input[name="genre"]');
-    let genres = [];
-
-    for (const genre of genreInput) {
-      genres.push(genre.value);
-    }
 
     const form = e.target;
 
@@ -35,6 +22,7 @@ const EditMovie = () => {
     const rating = parseFloat(form.rating.value).toFixed(2);
     const summary = form.summary.value;
     const year = Number(form.year.value);
+    const genre = form.genre.value;
 
     if (isNaN(year)) {
       setError("Please choose a release year");
@@ -50,7 +38,7 @@ const EditMovie = () => {
     const movie = {
       movie_name,
       poster,
-      genres,
+      genre,
       duration,
       rating,
       summary,
@@ -89,15 +77,11 @@ const EditMovie = () => {
   }
 
   return (
-    <section className="min-h-screen my-8">
+    <section className="min-h-screen mt-8">
       <div className="flex-col">
         <div className="text-center">
-          <h1 className="text-3xl font-bold mb-4">Add Movies</h1>
+          <h1 className="text-3xl font-bold mb-4">Update Movie Information</h1>
         </div>
-
-        {error && (
-          <p className="text-lg text-center my-2 text-red-600">{error}</p>
-        )}
         <div className="card bg-base-100 w-full max-w-lg mx-auto shrink-0 shadow-2xl">
           <form
             data-aos="fade-down"
@@ -111,55 +95,56 @@ const EditMovie = () => {
               <input
                 type="text"
                 placeholder="Movie Name"
-                className="input input-bordered"
+                className={`input input-bordered ${
+                  error.movie_name ? "border-red-500" : ""
+                }`}
                 name="movie_name"
-                required
-                minLength={2}
                 defaultValue={movie_name}
               />
+              {error.movie_name && (
+                <p className="text-sm text-red-600 mt-1">{error.movie_name}</p>
+              )}
             </div>
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Poster URL</span>
               </label>
               <input
-                type="url"
+                type="text"
                 placeholder="Poster URL"
-                className="input input-bordered"
+                className={`input input-bordered ${
+                  error.poster ? "border-red-500" : ""
+                }`}
                 name="poster"
-                required
                 defaultValue={poster}
               />
+              {error.poster && (
+                <p className="text-sm text-red-600 mt-1">{error.poster}</p>
+              )}
             </div>
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Genre</span>
               </label>
-              <div className="space-y-2">
-                {genreCount.map((genre, idx) => (
-                  <div key={idx} className="relative">
-                    <input
-                      key={idx}
-                      type="text"
-                      placeholder="Genre"
-                      className="input w-full input-bordered"
-                      name="genre"
-                      required
-                      defaultValue={genre}
-                    />
-
-                    {idx === genreCount.length - 1 && (
-                      <button
-                        type="button"
-                        onClick={handleGenreAdd}
-                        className="bg-violet-700 rounded-lg p-1 px-2 btn-primary w-fit absolute right-2 top-1/2 -translate-y-1/2"
-                      >
-                        <IoAddOutline size={24} />
-                      </button>
-                    )}
-                  </div>
-                ))}
-              </div>
+              <select
+                className={`select select-bordered w-full ${
+                  error.genre ? "border-red-500" : ""
+                }`}
+                name="genre"
+                defaultValue={genre}
+              >
+                <option value={"option"} disabled selected>
+                  Select an option
+                </option>
+                <option>Comedy</option>
+                <option>Drama</option>
+                <option>Horor</option>
+                <option>Biography</option>
+                <option>Historical Fiction</option>
+              </select>
+              {error.genre && (
+                <p className="text-sm text-red-600 mt-1">{error.genre}</p>
+              )}
             </div>
 
             <div className="form-control">
@@ -169,20 +154,29 @@ const EditMovie = () => {
               <input
                 type="number"
                 placeholder="Duration"
-                className="input input-bordered [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                className={`input input-bordered [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none ${
+                  error.duration ? "border-red-500" : ""
+                }`}
                 name="duration"
-                required
-                min={60}
                 defaultValue={duration}
               />
+              {error.duration && (
+                <p className="text-sm text-red-600 mt-1">{error.duration}</p>
+              )}
             </div>
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Release Year</span>
               </label>
-              <select className="select select-bordered w-full" name="year" defaultValue={year}>
-                <option disabled selected>
-                  Who shot first?
+              <select
+                className={`select select-bordered w-full ${
+                  error.year ? "border-red-500" : ""
+                }`}
+                name="year"
+                defaultValue={year}
+              >
+                <option value={"option"} disabled selected>
+                  Select an option
                 </option>
                 <option>2024</option>
                 <option>2023</option>
@@ -200,6 +194,10 @@ const EditMovie = () => {
                 <option>2011</option>
                 <option>2010</option>
               </select>
+
+              {error.year && (
+                <p className="text-sm text-red-600 mt-1">{error.year}</p>
+              )}
             </div>
             <div className="form-control">
               <label className="label">
@@ -208,11 +206,15 @@ const EditMovie = () => {
               <input
                 type="text"
                 placeholder="Rating"
-                className="input input-bordered"
+                className={`input input-bordered ${
+                  error.rating ? "border-red-500" : ""
+                }`}
                 name="rating"
-                required
                 defaultValue={rating}
               />
+              {error.rating && (
+                <p className="text-sm text-red-600 mt-1">{error.rating}</p>
+              )}
             </div>
             <div className="form-control">
               <label className="label">
@@ -221,16 +223,19 @@ const EditMovie = () => {
               <textarea
                 type="text"
                 placeholder="Summary"
-                className="input py-3 input-bordered"
+                className={`input py-3 input-bordered ${
+                  error.summary ? "border-red-500" : ""
+                }`}
                 name="summary"
-                required
-                minLength={10}
                 defaultValue={summary}
               ></textarea>
+              {error.summary && (
+                <p className="text-sm text-red-600 mt-1">{error.summary}</p>
+              )}
             </div>
             <div className="form-control mt-6">
               <button type="submit" className="btn btn-primary">
-                Update Information
+                Update Movie
               </button>
             </div>
           </form>

@@ -10,7 +10,7 @@ const Details = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const movie = useLoaderData();
-  const { _id, poster, movie_name, rating, year, summary, duration, genres } =
+  const { _id, poster, movie_name, rating, year, summary, duration, genre } =
     movie;
 
   const handleMovieDelele = (id) => {
@@ -55,7 +55,7 @@ const Details = () => {
         year,
         summary,
         duration,
-        genres,
+        genre,
         author: {
           email: user.email,
         },
@@ -76,7 +76,7 @@ const Details = () => {
   return (
     <div className="flex justify-center flex-col gap-6 items-center min-h-screen bg-gradient-to-r from-purple-500 to-pink-500 p-6">
       <div className="max-w-lg w-full bg-white rounded-lg overflow-hidden">
-        <div data-aos='fade-down-right' className="relative">
+        <div data-aos="fade-down-right" className="relative">
           <img
             src={poster}
             alt={`${movie_name}'s poster`}
@@ -88,7 +88,9 @@ const Details = () => {
         </div>
 
         <div className="p-4">
-          <h2 data-aos='fade-left' className="text-3xl font-bold mb-4">{movie_name}</h2>
+          <h2 data-aos="fade-left" className="text-3xl font-bold mb-4">
+            {movie_name}
+          </h2>
           <div className="flex gap-6 items-center text-sm mb-6">
             <p>
               <span className="font-medium">Released: </span>
@@ -115,18 +117,12 @@ const Details = () => {
             </span>
           </div>
 
-          <div className="mb-6">
-            <h3 className="text-lg font-semibold">Genres:</h3>
-            <div className="flex flex-wrap gap-2 mt-2">
-              {genres.map((genre, index) => (
-                <span
-                  key={index}
-                  className="px-3 py-1 bg-violet-200 text-violet-900 text-sm font-medium rounded-full"
-                >
-                  {genre}
-                </span>
-              ))}
-            </div>
+          <div className="mb-6 flex gap-4 items-center">
+            <h3 className="text-lg font-semibold">Genre:</h3>
+            <p className="px-3 py-1 bg-violet-200 text-violet-900 text-sm font-medium rounded-full"
+            >
+              {genre}
+            </p>
           </div>
 
           <p className="text-sm mb-8">{summary}</p>

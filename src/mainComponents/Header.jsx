@@ -104,8 +104,8 @@ const Header = () => {
         </NavLink>
       </li>
 
-      <div className="mt-4 px-2">
-        <label className="swap swap-rotate md:hidden">
+      <div className="mt-4 px-2 md:hidden">
+        <label className="swap swap-rotate">
           <input
             type="checkbox"
             checked={theme === "dark" ? true : false}

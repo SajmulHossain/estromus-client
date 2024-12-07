@@ -78,7 +78,9 @@ const router = createBrowserRouter([
           </PrivetRoute>
         ),
         loader: ({ params }) =>
-          fetch(`/movies/${params.id}`),
+          fetch(
+            `https://ph-assignment-10-server-gray.vercel.app/movies/${params.id}`
+          ),
       },
     ],
   },

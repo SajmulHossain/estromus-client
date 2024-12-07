@@ -12,7 +12,7 @@ const Home = () => {
     <section>
       <HomeSlider />
 
-      <section className="px-0 my-32">
+      <section className="px-0 my-12">
         <Heading head="Featured" paragraph="Explore highest rated movies" />
         {movies.length ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 ">

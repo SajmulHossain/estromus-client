@@ -15,7 +15,7 @@ const About = () => {
         <span className="font-semibold text-violet-700">Estromus</span>, we
         strive to create a one-stop platform for all things movies. Whether
         you&apos;re looking for detailed reviews, trailers, or information on
-        your favorite genres, we have it all. Our mission is to connect movie
+        your favorite genre, we have it all. Our mission is to connect movie
         lovers with the latest releases, timeless classics, and hidden gems from
         around the world. With an easy-to-use interface and a constantly updated
         database, we aim to provide a seamless experience for discovering and
@@ -45,7 +45,7 @@ const About = () => {
                 <td>Empower Movie Lovers</td>
                 <td>
                   Provide a comprehensive and user-friendly platform to explore
-                  movies across all genres, languages, and cultures.
+                  movies across all genre, languages, and cultures.
                 </td>
               </tr>
               <tr data-aos="fade-down">

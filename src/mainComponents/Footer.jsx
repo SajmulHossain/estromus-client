@@ -3,8 +3,8 @@ import { MdEmail } from "react-icons/md";
 
 const Footer = () => {
   return (
-    <footer className="max-w-screen-xl dark:bg-violet-950 bg-violet-100 pt-12 mx-auto px-4">
-      <section className="footer px-0 dark:text-gray-300 text-base-content">
+    <footer className="max-w-screen-xl dark:bg-violet-950 bg-violet-100 pb-2 pt-12 mx-auto px-4">
+      <section className="footer px-0 my-0 dark:text-gray-300 text-base-content mb-12">
         <aside>
           <h3 className="font-bold text-2xl">Estromus </h3>
           <p>Providing reliable movie since 2024</p>

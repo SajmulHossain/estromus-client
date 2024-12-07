@@ -1,26 +1,15 @@
 import { useContext, useState } from "react";
-import { IoAddOutline } from "react-icons/io5";
 import Swal from "sweetalert2";
 import { AuthContext } from "../contextProvider/AuthProvider";
+import isValidURL from "../utils/url";
 
 const AddMovies = () => {
-  const [genreCount, setGenreCount] = useState([1]);
-  const [error, setError] = useState("");
+  const [error, setError] = useState({});
   const { user } = useContext(AuthContext);
 
-  const handleGenreAdd = () => {
-    setGenreCount([...genreCount, 1]);
-  };
 
   const handleMovieAdd = (e) => {
     e.preventDefault();
-
-    const genreInput = document.querySelectorAll('input[name="genre"]');
-    let genres = [];
-
-    for (const genre of genreInput) {
-      genres.push(genre.value);
-    }
 
     const form = e.target;
 
@@ -30,21 +19,77 @@ const AddMovies = () => {
     const rating = parseFloat(form.rating.value).toFixed(2);
     const summary = form.summary.value;
     const year = Number(form.year.value);
+    const genre = form.genre.value;
 
-    if (isNaN(year)) {
-      setError("Please choose a release year");
-      return;
+    setError({});
+
+    const url = isValidURL(poster);
+
+    if(poster.length === 0) {
+      setError((prev) => ({
+        ...prev,
+        poster: "Your must give a url",
+      }));
+    } else if(!url) {
+      setError((prev) => ({
+        ...prev,
+        poster: 'Your must give a valid url'
+      }))
+
+    }
+
+    if(movie_name.length === 0 || !movie_name) {
+      setError((prev) => ({
+        ...prev,
+        movie_name: "Your must give movie name",
+      }));
+      
+    } else if(movie_name.length < 2) {
+      setError((prev) => ({
+        ...prev,
+        movie_name: "Movie name must more than 2 characters",
+      }));
+      
+    }
+
+    if(genre === 'option') {
+      setError((prev) => ({...prev, genre: 'Please select an option'})) 
+    }
+
+    if(duration <= 60) {
+      setError((prev) => ({...prev, duration: 'Please give the value grater than 60'}))
+    }
+
+    if (!year || isNaN(year)) {
+      setError((prev) => ({
+        ...prev,
+        year: "You must select a released year",
+      }));
+      
     }
 
     if (isNaN(rating) || rating < 0 || rating > 5) {
-      setError("Please give a valid number input between 0 to 5");
+      setError((prev) => ({
+        ...prev,
+        rating: "You must give a rating between 0 to 5",
+      }));
+      
+    }
+
+    if(!summary || summary.length === 0) {
+      setError(prev => ({...prev, summary: 'Please give a summary'}))
+    } else if(summary.length <= 10) {
+      setError((prev) => ({ ...prev, summary: "Summary should more than 10 characters" }));
+    }
+
+    if(error.poster || error.movie_name || error.year || error.rating || error.genre || error.summary || error.duration) {
       return;
     }
 
     const movie = {
       movie_name,
       poster,
-      genres,
+      genre,
       duration,
       rating,
       summary,
@@ -79,10 +124,6 @@ const AddMovies = () => {
         <div className="text-center">
           <h1 className="text-3xl font-bold mb-4">Add Movies</h1>
         </div>
-
-        {error && (
-          <p className="text-lg text-center my-2 text-red-600">{error}</p>
-        )}
         <div className="card bg-base-100 w-full max-w-lg mx-auto shrink-0 shadow-2xl">
           <form
             data-aos="fade-down"
@@ -96,52 +137,55 @@ const AddMovies = () => {
               <input
                 type="text"
                 placeholder="Movie Name"
-                className="input input-bordered"
+                className={`input input-bordered ${
+                  error.movie_name ? "border-red-500" : ""
+                }`}
                 name="movie_name"
-                required
-                minLength={2}
+                // required
               />
+              {error.movie_name && (
+                <p className="text-sm text-red-600 mt-1">{error.movie_name}</p>
+              )}
             </div>
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Poster URL</span>
               </label>
               <input
-                type="url"
+                type="text"
                 placeholder="Poster URL"
-                className="input input-bordered"
+                className={`input input-bordered ${
+                  error.poster ? "border-red-500" : ""
+                }`}
                 name="poster"
-                required
+                // required
               />
+              {error.poster && (
+                <p className="text-sm text-red-600 mt-1">{error.poster}</p>
+              )}
             </div>
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Genre</span>
               </label>
-              <div className="space-y-2">
-                {genreCount.map((genre, idx) => (
-                  <div key={idx} className="relative">
-                    <input
-                      key={idx}
-                      type="text"
-                      placeholder="Genre"
-                      className="input w-full input-bordered"
-                      name="genre"
-                      required
-                    />
-
-                    {idx === genreCount.length - 1 && (
-                      <button
-                        type="button"
-                        onClick={handleGenreAdd}
-                        className="bg-violet-700 rounded-lg p-1 px-2 btn-primary w-fit absolute right-2 top-1/2 -translate-y-1/2"
-                      >
-                        <IoAddOutline size={24} />
-                      </button>
-                    )}
-                  </div>
-                ))}
-              </div>
+              <select
+                className={`select select-bordered w-full ${
+                  error.genre ? "border-red-500" : ""
+                }`}
+                name="genre"
+              >
+                <option value={"option"} disabled selected>
+                  Select an option
+                </option>
+                <option>Comedy</option>
+                <option>Drama</option>
+                <option>Horor</option>
+                <option>Biography</option>
+                <option>Historical Fiction</option>
+              </select>
+              {error.genre && (
+                <p className="text-sm text-red-600 mt-1">{error.genre}</p>
+              )}
             </div>
 
             <div className="form-control">
@@ -151,19 +195,27 @@ const AddMovies = () => {
               <input
                 type="number"
                 placeholder="Duration"
-                className="input input-bordered [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                className={`input input-bordered [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none ${
+                  error.duration ? "border-red-500" : ""
+                }`}
                 name="duration"
-                required
-                min={60}
               />
+              {error.duration && (
+                <p className="text-sm text-red-600 mt-1">{error.duration}</p>
+              )}
             </div>
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Release Year</span>
               </label>
-              <select className="select select-bordered w-full" name="year">
-                <option disabled selected>
-                  Who shot first?
+              <select
+                className={`select select-bordered w-full ${
+                  error.year ? "border-red-500" : ""
+                }`}
+                name="year"
+              >
+                <option value={"option"} disabled selected>
+                  Select an option
                 </option>
                 <option>2024</option>
                 <option>2023</option>
@@ -181,6 +233,10 @@ const AddMovies = () => {
                 <option>2011</option>
                 <option>2010</option>
               </select>
+
+              {error.year && (
+                <p className="text-sm text-red-600 mt-1">{error.year}</p>
+              )}
             </div>
             <div className="form-control">
               <label className="label">
@@ -189,10 +245,14 @@ const AddMovies = () => {
               <input
                 type="text"
                 placeholder="Rating"
-                className="input input-bordered"
+                className={`input input-bordered ${
+                  error.rating ? "border-red-500" : ""
+                }`}
                 name="rating"
-                required
               />
+              {error.rating && (
+                <p className="text-sm text-red-600 mt-1">{error.rating}</p>
+              )}
             </div>
             <div className="form-control">
               <label className="label">
@@ -201,11 +261,14 @@ const AddMovies = () => {
               <textarea
                 type="text"
                 placeholder="Summary"
-                className="input py-3 input-bordered"
+                className={`input py-3 input-bordered ${
+                  error.summary ? "border-red-500" : ""
+                }`}
                 name="summary"
-                required
-                minLength={10}
               ></textarea>
+              {error.summary && (
+                <p className="text-sm text-red-600 mt-1">{error.summary}</p>
+              )}
             </div>
             <div className="form-control mt-6">
               <button type="submit" className="btn btn-primary">
