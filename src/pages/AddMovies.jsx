@@ -8,7 +8,6 @@ const AddMovies = () => {
   const [error, setError] = useState({});
   const { user } = useContext(AuthContext);
 
-
   const handleMovieAdd = (e) => {
     e.preventDefault();
 
@@ -26,39 +25,46 @@ const AddMovies = () => {
 
     const url = isValidURL(poster);
 
-    if(poster.length === 0) {
-      setError((prev) => ({
-        ...prev,
-        poster: "Your must give a url",
-      }));
-    } else if(!url) {
-      setError((prev) => ({
-        ...prev,
-        poster: 'Your must give a valid url'
-      }))
-
-    }
-
-    if(movie_name.length === 0 || !movie_name) {
+    if (movie_name.length === 0 || !movie_name) {
       setError((prev) => ({
         ...prev,
         movie_name: "Your must give movie name",
       }));
-      
-    } else if(movie_name.length < 2) {
+      return;
+    } else if (movie_name.length < 2) {
       setError((prev) => ({
         ...prev,
         movie_name: "Movie name must more than 2 characters",
       }));
-      
+      return;
     }
 
-    if(genre === 'option') {
-      setError((prev) => ({...prev, genre: 'Please select an option'})) 
+    if (poster.length === 0) {
+      setError((prev) => ({
+        ...prev,
+        poster: "Your must give a url",
+      }));
+      return;
+    } else if (!url) {
+      setError((prev) => ({
+        ...prev,
+        poster: "Your must give a valid url",
+      }));
+      return;
     }
 
-    if(duration <= 60) {
-      setError((prev) => ({...prev, duration: 'Please give the value grater than 60'}))
+
+    if (genre === "option") {
+      setError((prev) => ({ ...prev, genre: "Please select an option" }));
+      return;
+    }
+
+    if (duration <= 60) {
+      setError((prev) => ({
+        ...prev,
+        duration: "Please give the value grater than 60",
+      }));
+      return;
     }
 
     if (!year || isNaN(year)) {
@@ -66,7 +72,7 @@ const AddMovies = () => {
         ...prev,
         year: "You must select a released year",
       }));
-      
+      return;
     }
 
     if (isNaN(rating) || rating < 0 || rating > 5) {
@@ -74,16 +80,17 @@ const AddMovies = () => {
         ...prev,
         rating: "You must give a rating between 0 to 5",
       }));
-      
+      return;
     }
 
-    if(!summary || summary.length === 0) {
-      setError(prev => ({...prev, summary: 'Please give a summary'}))
-    } else if(summary.length <= 10) {
-      setError((prev) => ({ ...prev, summary: "Summary should more than 10 characters" }));
-    }
-
-    if(error.poster || error.movie_name || error.year || error.rating || error.genre || error.summary || error.duration) {
+    if (!summary || summary.length === 0) {
+      setError((prev) => ({ ...prev, summary: "Please give a summary" }));
+      return;
+    } else if (summary.length <= 10) {
+      setError((prev) => ({
+        ...prev,
+        summary: "Summary should more than 10 characters",
+      }));
       return;
     }
 
