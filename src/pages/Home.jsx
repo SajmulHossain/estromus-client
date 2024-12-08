@@ -4,6 +4,7 @@ import Movie from "../components/Movie";
 import Heading from "../components/Heading";
 import NoData from "../components/NoData";
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
 
 
 const Home = () => {
@@ -20,6 +21,9 @@ const Home = () => {
 
   return (
     <section>
+      <Helmet>
+        <title>Home || Estromus</title>
+      </Helmet>
       <HomeSlider />
 
       <section className="px-0">

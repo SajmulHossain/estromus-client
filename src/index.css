@@ -6,7 +6,7 @@
 
 @layer base {
   section {
-    @apply max-w-screen-xl mx-auto px-4 my-12;
+    @apply max-w-screen-xl mx-auto px-4 my-12 md:my-20;
   }
 
   table, td, th {

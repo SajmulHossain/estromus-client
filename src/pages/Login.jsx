@@ -4,6 +4,7 @@ import { AuthContext } from "../contextProvider/AuthProvider";
 import googleIcon from "../assets/google.png";
 import Swal from "sweetalert2";
 import { useForm } from "react-hook-form";
+import { Helmet } from "react-helmet-async";
 
 const Login = () => {
   const { loginUser, setUser, signinWithGoogle, setLoading } =
@@ -108,6 +109,9 @@ const Login = () => {
 
   return (
     <section className="min-h-screen">
+      <Helmet>
+        <title>Login || Estromus</title>
+      </Helmet>
       <div
         className="hero-content flex-col"
         data-aos="flip-right"

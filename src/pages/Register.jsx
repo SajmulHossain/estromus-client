@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 import googleIcon from '../assets/google.png'
+import { Helmet } from "react-helmet-async";
 
 const Register = () => {
   const { createUser, setUser, updateUser, setLoading, signinWithGoogle } =
@@ -133,6 +134,9 @@ const Register = () => {
 
   return (
     <section className="min-h-screen">
+      <Helmet>
+        <title>Register || Astromus</title>
+      </Helmet>
       <div
         className="hero-content flex-col"
         data-aos="flip-left"

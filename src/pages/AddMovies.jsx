@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import Swal from "sweetalert2";
 import { AuthContext } from "../contextProvider/AuthProvider";
 import isValidURL from "../utils/url";
+import { Helmet } from "react-helmet-async";
 
 const AddMovies = () => {
   const [error, setError] = useState({});
@@ -120,6 +121,9 @@ const AddMovies = () => {
 
   return (
     <section className="min-h-screen mt-8">
+      <Helmet>
+        <title>Add Movies || Estromus</title>
+      </Helmet>
       <div className="flex-col">
         <div className="text-center">
           <h1 className="text-3xl font-bold mb-4">Add Movies</h1>

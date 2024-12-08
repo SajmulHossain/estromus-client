@@ -3,6 +3,7 @@ import { useLoaderData } from "react-router-dom";
 import Movie from "../components/Movie";
 import Heading from "../components/Heading";
 import NoData from "../components/NoData";
+import { Helmet } from "react-helmet-async";
 
 const Movies = () => {
   const data = useLoaderData();
@@ -22,6 +23,9 @@ const Movies = () => {
   }
   return (
     <section>
+      <Helmet>
+        <title>Movies || Estromus</title>
+      </Helmet>
       <Heading head="Movies" paragraph="Explore all movies" />
 
       <div className="flex justify-center my-8 max-w-screen-md mx-auto">

@@ -1,8 +1,12 @@
+import { Helmet } from "react-helmet-async";
 import Heading from "../components/Heading";
 
 const About = () => {
   return (
     <section>
+      <Helmet>
+        <title>About || Estromus</title>
+      </Helmet>
       <div className="flex flex-col items-center justify-center mt-4">
         <h2 className="font-bold text-4xl">Estromus</h2>
         <p className="text-gray-500 font-semibold dark:text-gray-400">A movie sharing platform</p>
