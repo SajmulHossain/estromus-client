@@ -5,6 +5,7 @@ import Rating from "react-rating";
 import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../contextProvider/AuthProvider";
+import { Helmet } from "react-helmet-async";
 
 const Details = () => {
   const { user } = useContext(AuthContext);
@@ -75,6 +76,9 @@ const Details = () => {
 
   return (
     <div className="flex justify-center flex-col gap-6 items-center min-h-screen bg-gradient-to-r from-purple-500 to-pink-500 p-6">
+      <Helmet>
+        <title>Details || Estromus</title>
+      </Helmet>
       <div className="max-w-lg w-full bg-white rounded-lg overflow-hidden">
         <div data-aos="fade-down-right" className="relative">
           <img

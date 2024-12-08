@@ -5,6 +5,7 @@ import Heading from "../components/Heading";
 import NoData from "../components/NoData";
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
+import FAQ from "../components/FAQ";
 
 
 const Home = () => {
@@ -47,6 +48,8 @@ const Home = () => {
           </div> : <NoData />
         }
       </section>
+
+      <FAQ />
     </section>
   );
 };

@@ -53,6 +53,7 @@ const Register = () => {
       updateUser(userData)
       .then(() => {
         navigate(location?.state ? location.state : "/");
+        form.reset();
         const Toast = Swal.mixin({
           toast: true,
           position: "top-end",

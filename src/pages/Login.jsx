@@ -86,6 +86,7 @@ const Login = () => {
         });
 
         navigate(location?.state ? location.state : "/");
+        
       })
       .catch((err) => {
         setLoading(false);
