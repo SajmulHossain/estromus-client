@@ -15,7 +15,7 @@ function App() {
        duration: 500, 
        offset: 50, 
        easing: "ease",
-       once: false, 
+       once: true, 
      });
    }, []);
 
