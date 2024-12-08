@@ -3,10 +3,18 @@ import Swal from "sweetalert2";
 import { AuthContext } from "../contextProvider/AuthProvider";
 import isValidURL from "../utils/url";
 import { Helmet } from "react-helmet-async";
+import { CiStar } from "react-icons/ci";
+import { IoIosStar } from "react-icons/io";
+import Rating from "react-rating";
 
 const AddMovies = () => {
   const [error, setError] = useState({});
   const { user } = useContext(AuthContext);
+  const [rating, setRating] = useState(0);
+
+  const handleRating = value => {
+    setRating(value);
+  }
 
   const handleMovieAdd = (e) => {
     e.preventDefault();
@@ -16,7 +24,6 @@ const AddMovies = () => {
     const movie_name = form.movie_name.value;
     const poster = form.poster.value;
     const duration = Number(form.duration.value);
-    const rating = parseFloat(form.rating.value).toFixed(2);
     const summary = form.summary.value;
     const year = Number(form.year.value);
     const genre = form.genre.value;
@@ -75,7 +82,7 @@ const AddMovies = () => {
       return;
     }
 
-    if (isNaN(rating) || rating < 0 || rating > 5) {
+    if (isNaN(rating) || rating <= 0 || rating > 5) {
       setError((prev) => ({
         ...prev,
         rating: "You must give a rating between 0 to 5",
@@ -93,6 +100,7 @@ const AddMovies = () => {
       }));
       return;
     }
+
 
     const movie = {
       movie_name,
@@ -117,6 +125,7 @@ const AddMovies = () => {
       .then((res) => res.json())
       .then((data) => {
         form.reset();
+        setRating(0);
         if (data.insertedId) {
           Swal.fire({
             title: "Yeah!",
@@ -254,14 +263,19 @@ const AddMovies = () => {
               <label className="label">
                 <span className="label-text">Rating</span>
               </label>
-              <input
-                type="text"
-                placeholder="Rating"
-                className={`input input-bordered ${
-                  error.rating ? "border-red-500" : ""
-                }`}
-                name="rating"
-              />
+
+              <div className="flex items-center gap-2">
+                <Rating
+                  onChange={handleRating}
+                  className="text-3xl flex items-center"
+                  emptySymbol={<CiStar className="text-yellow-500" />}
+                  fullSymbol={<IoIosStar className="text-yellow-500" />}
+                  initialRating={rating}
+                />
+                <span className="text-yellow-500 text-lg font-semibold">
+                  ({rating})
+                </span>
+              </div>
               {error.rating && (
                 <p className="text-sm text-red-600 mt-1">{error.rating}</p>
               )}

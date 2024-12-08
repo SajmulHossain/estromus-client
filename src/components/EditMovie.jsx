@@ -2,14 +2,23 @@ import { useContext, useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { AuthContext } from "../contextProvider/AuthProvider";
 import Swal from "sweetalert2";
+import Rating from "react-rating";
+import { CiStar } from "react-icons/ci";
+import { IoIosStar } from "react-icons/io";
+import isValidURL from "../utils/url";
 
 const EditMovie = () => {
   const navigate = useNavigate();
   const {user} = useContext(AuthContext)
   const movie = useLoaderData();
   const { _id, movie_name, poster, genre, duration, rating, summary, year } = movie;
+  const [newRating, setNewRating] = useState(rating);
 
   const [error, setError] = useState('');
+
+  const handleRating = value => {
+    setNewRating(value);
+  }
 
   const handleMovieEdit = e => {
     e.preventDefault();
@@ -19,18 +28,79 @@ const EditMovie = () => {
     const movie_name = form.movie_name.value;
     const poster = form.poster.value;
     const duration = Number(form.duration.value);
-    const rating = parseFloat(form.rating.value).toFixed(2);
     const summary = form.summary.value;
     const year = Number(form.year.value);
     const genre = form.genre.value;
 
-    if (isNaN(year)) {
-      setError("Please choose a release year");
+    setError({});
+
+    const url = isValidURL(poster);
+
+    if (movie_name.length === 0 || !movie_name) {
+      setError((prev) => ({
+        ...prev,
+        movie_name: "Your must give movie name",
+      }));
+      return;
+    } else if (movie_name.length < 2) {
+      setError((prev) => ({
+        ...prev,
+        movie_name: "Movie name must more than 2 characters",
+      }));
       return;
     }
 
-    if (isNaN(rating) || rating < 0 || rating > 5) {
-      setError("Please give a valid number input between 0 to 5");
+    if (poster.length === 0) {
+      setError((prev) => ({
+        ...prev,
+        poster: "Your must give a url",
+      }));
+      return;
+    } else if (!url) {
+      setError((prev) => ({
+        ...prev,
+        poster: "Your must give a valid url",
+      }));
+      return;
+    }
+
+    if (genre === "option") {
+      setError((prev) => ({ ...prev, genre: "Please select an option" }));
+      return;
+    }
+
+    if (duration <= 60) {
+      setError((prev) => ({
+        ...prev,
+        duration: "Please give a value grater than 60",
+      }));
+      return;
+    }
+
+    if (!year || isNaN(year)) {
+      setError((prev) => ({
+        ...prev,
+        year: "You must select a released year",
+      }));
+      return;
+    }
+
+    if (isNaN(newRating) || newRating <= 0 || newRating > 5) {
+      setError((prev) => ({
+        ...prev,
+        rating: "You must give a rating between 0 to 5",
+      }));
+      return;
+    }
+
+    if (!summary || summary.length === 0) {
+      setError((prev) => ({ ...prev, summary: "Please give a summary" }));
+      return;
+    } else if (summary.length <= 10) {
+      setError((prev) => ({
+        ...prev,
+        summary: "Summary should more than 10 characters",
+      }));
       return;
     }
 
@@ -40,7 +110,7 @@ const EditMovie = () => {
       poster,
       genre,
       duration,
-      rating,
+      rating: newRating,
       summary,
       year,
       author: {
@@ -203,15 +273,18 @@ const EditMovie = () => {
               <label className="label">
                 <span className="label-text">Rating</span>
               </label>
-              <input
-                type="text"
-                placeholder="Rating"
-                className={`input input-bordered ${
-                  error.rating ? "border-red-500" : ""
-                }`}
-                name="rating"
-                defaultValue={rating}
-              />
+              <div className="flex items-center gap-2">
+                <Rating
+                  onChange={handleRating}
+                  className="text-3xl flex items-center"
+                  emptySymbol={<CiStar className="text-yellow-500" />}
+                  fullSymbol={<IoIosStar className="text-yellow-500" />}
+                  initialRating={newRating}
+                />
+                <span className="text-yellow-500 text-lg font-semibold">
+                  ({newRating})
+                </span>
+              </div>
               {error.rating && (
                 <p className="text-sm text-red-600 mt-1">{error.rating}</p>
               )}
