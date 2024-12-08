@@ -29,19 +29,19 @@ const HomeSlider = () => {
       className="mySwiper rounded-lg"
     >
       <SwiperSlide>
-        <img src={slider1} className="object-cover w-full h-[400px]" alt="slider1" />
+        <img src={slider1} className="object-cover w-full h-[400px] lg:h-[600px]" alt="slider1" />
       </SwiperSlide>
       <SwiperSlide>
-        <img src={marvelImg} className="object-cover w-full h-[400px]" alt="slider2" />
+        <img src={marvelImg} className="object-cover w-full h-[400px] lg:h-[600px]" alt="slider2" />
       </SwiperSlide>
       <SwiperSlide>
-        <img src={spiderMan} className="object-cover w-full h-[400px]" alt="slider3" />
+        <img src={spiderMan} className="object-cover w-full h-[400px] lg:h-[600px]" alt="slider3" />
       </SwiperSlide>
       <SwiperSlide>
-        <img src={avengerImg} className="object-cover w-full h-[400px]" alt="slider3" />
+        <img src={avengerImg} className="object-cover w-full h-[400px] lg:h-[600px]" alt="slider3" />
       </SwiperSlide>
       <SwiperSlide>
-        <img src={matrixImg} className="object-cover w-full h-[400px]" alt="slider3" />
+        <img src={matrixImg} className="object-cover w-full h-[400px] lg:h-[600px]" alt="slider3" />
       </SwiperSlide>
     </Swiper>
   );
