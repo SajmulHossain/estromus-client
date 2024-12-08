@@ -62,7 +62,7 @@ const AddMovies = () => {
     if (duration <= 60) {
       setError((prev) => ({
         ...prev,
-        duration: "Please give the value grater than 60",
+        duration: "Please give a value grater than 60",
       }));
       return;
     }
@@ -116,6 +116,7 @@ const AddMovies = () => {
     })
       .then((res) => res.json())
       .then((data) => {
+        form.reset();
         if (data.insertedId) {
           Swal.fire({
             title: "Yeah!",
