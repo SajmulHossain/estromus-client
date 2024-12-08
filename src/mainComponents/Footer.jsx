@@ -7,16 +7,16 @@ const Footer = () => {
       <section className="footer justify-between my-0 dark:text-gray-300 text-base-content mb-12">
         <aside>
           <h3 className="font-bold text-2xl">Estromus </h3>
-          <p>Providing reliable movie since 2024</p>
+          <p className="italic">Providing reliable movie since 2024</p>
         </aside>
 
         <nav>
           <h6 className="footer-title">Contact</h6>
           <p className="flex items-center gap-2">
-            <MdEmail /> <span>sajmul1427@gmail.com</span>
+            <MdEmail /> <span className="italic">sajmul1427@gmail.com</span>
           </p>
           <p className="flex items-center gap-2">
-            <FaPhoneAlt /> <span>01601427140</span>
+            <FaPhoneAlt /> <span className="italic">01601427140</span>
           </p>
         </nav>
         <nav>
@@ -64,7 +64,8 @@ const Footer = () => {
 
       <aside className="border-y dark:border-violet-300 border-violet-700 mt-4 rounded-sm px-4">
         <p className="text-center dark:text-white py-4">
-          Copyright © {new Date().getFullYear()} - All right reserved by Estromus Ltd
+          Copyright © {new Date().getFullYear()} - All right reserved by{" "}
+          <span className="text-violet-700 dark:text-violet-200 font-semibold italic">Estromus Ltd</span>
         </p>
       </aside>
     </footer>
