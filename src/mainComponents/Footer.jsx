@@ -64,8 +64,7 @@ const Footer = () => {
 
       <aside className="border-y dark:border-violet-300 border-violet-700 mt-4 rounded-sm">
         <p className="text-center dark:text-white py-4">
-          Copyright © {new Date().getFullYear()} - All right reserved by ACME
-          Industries Ltd
+          Copyright © {new Date().getFullYear()} - All right reserved by Estromus Ltd
         </p>
       </aside>
     </footer>
