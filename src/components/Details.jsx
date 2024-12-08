@@ -36,7 +36,7 @@ const Details = () => {
               setLoading(false);
               Swal.fire({
                 title: "Deleted!",
-                text: "Your file has been deleted.",
+                text: "Your movie has been deleted.",
                 icon: "success",
               });
             }
