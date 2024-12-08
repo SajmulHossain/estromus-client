@@ -141,7 +141,7 @@ const Details = () => {
               data-aos="fade-right"
               className="btn join-item btn-info w-1/3"
             >
-              Edit Movie
+              Update Movie
             </Link>
             <button
               data-aos="fade-up"
