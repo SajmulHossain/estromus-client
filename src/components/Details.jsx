@@ -83,7 +83,7 @@ const Details = () => {
       <Helmet>
         <title>Details || Estromus</title>
       </Helmet>
-      <div className="max-w-lg w-full bg-white rounded-lg overflow-hidden">
+      <div className="max-w-lg w-full bg-white rounded-lg overflow-hidden dark:bg-violet-950 dark:text-gray-200">
         <div data-aos="fade-down-right" className="relative">
           <img
             src={poster}
@@ -102,11 +102,11 @@ const Details = () => {
           <div className="flex gap-6 items-center text-sm mb-6">
             <p>
               <span className="font-medium">Released: </span>
-              <span className="text-gray-600">{year}</span>
+              <span className="text-gray-600 dark:text-gray-300">{year}</span>
             </p>
             <p>
               <span className="font-medium">Duration: </span>
-              <span className="text-gray-600">
+              <span className="text-gray-600 dark:text-gray-300">
                 {parseInt(duration / 60)}h {duration % 60}m
               </span>
             </p>
@@ -163,7 +163,7 @@ const Details = () => {
       <Link
         data-aos="fade-down-left"
         to="/movies"
-        className="btn max-w-lg mx-auto w-full"
+        className="btn dark:text-gray-200 max-w-lg mx-auto w-full"
       >
         All Movies
       </Link>

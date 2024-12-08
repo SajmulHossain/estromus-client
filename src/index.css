@@ -7,6 +7,7 @@
 @layer base {
   body {
     overflow-y: scroll;
+    @apply dark:text-gray-200;
   }
 
   section {
@@ -14,7 +15,7 @@
   }
 
   table, td, th {
-    @apply border dark:text-black;
+    @apply border dark:text-gray-300;
   }
 
   th, td {
@@ -30,11 +31,11 @@
   }
 
   tr:nth-child(2n+1) {
-    @apply bg-violet-400;
+    @apply bg-violet-400 dark:bg-violet-700;
   }
 
   tr:nth-child(2n) {
-    @apply bg-violet-300;
+    @apply bg-violet-300 dark:bg-violet-500;
   }
 }
 

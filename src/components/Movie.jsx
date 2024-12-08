@@ -64,11 +64,11 @@ const Movie = ({ movie, setFavorite, allMovies }) => {
       <div className="flex gap-6 items-center mb-2 mt-4">
         <p>
           <span className="font-medium">Released: </span>
-          <span className="text-violet-500">{year}</span>
+          <span className="text-gray-500 dark:text-violet-400">{year}</span>
         </p>
         <p>
           <span className="font-medium">Duration: </span>
-          <span className="text-violet-500">
+          <span className="text-gray-500 dark:text-violet-400">
             {parseInt(duration / 60)}h {duration % 60}m
           </span>
         </p>
