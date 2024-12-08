@@ -12,6 +12,7 @@ const Home = () => {
  const movies = useLoaderData();
  const [recentMovies, setRecentMovies] = useState([]);
 
+
  useEffect(() => {
   fetch("https://ph-assignment-10-server-gray.vercel.app/recent")
   .then(res => res.json())

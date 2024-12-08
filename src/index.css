@@ -5,6 +5,10 @@
 @tailwind utilities;
 
 @layer base {
+  body {
+    overflow-y: scroll;
+  }
+
   section {
     @apply max-w-screen-xl mx-auto px-4 my-12 md:my-20;
   }

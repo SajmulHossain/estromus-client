@@ -9,7 +9,7 @@ import Rating from "react-rating";
 
 const AddMovies = () => {
   const [error, setError] = useState({});
-  const { user } = useContext(AuthContext);
+  const { user, setLoading } = useContext(AuthContext);
   const [rating, setRating] = useState(0);
 
   const handleRating = value => {
@@ -115,6 +115,8 @@ const AddMovies = () => {
       },
     };
 
+    setLoading(true);
+
     fetch("https://ph-assignment-10-server-gray.vercel.app/movies", {
       method: "POST",
       headers: {
@@ -125,6 +127,7 @@ const AddMovies = () => {
       .then((res) => res.json())
       .then((data) => {
         form.reset();
+        setLoading(false);
         setRating(0);
         if (data.insertedId) {
           Swal.fire({

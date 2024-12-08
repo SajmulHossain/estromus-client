@@ -9,7 +9,7 @@ import isValidURL from "../utils/url";
 
 const EditMovie = () => {
   const navigate = useNavigate();
-  const {user} = useContext(AuthContext)
+  const {user, setLoading} = useContext(AuthContext)
   const movie = useLoaderData();
   const { _id, movie_name, poster, genre, duration, rating, summary, year } = movie;
   const [newRating, setNewRating] = useState(rating);
@@ -118,6 +118,7 @@ const EditMovie = () => {
       },
     };
 
+    setLoading(true);
 
     fetch(`https://ph-assignment-10-server-gray.vercel.app/movies/${_id}`,{
       method: "PUT",
@@ -128,6 +129,7 @@ const EditMovie = () => {
     })
     .then(res => res.json())
     .then(data => {
+      setLoading(false);
       if(data.modifiedCount) {
         Swal.fire({
           title: "Yeah!",

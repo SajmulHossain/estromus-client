@@ -8,7 +8,7 @@ import { AuthContext } from "../contextProvider/AuthProvider";
 import { Helmet } from "react-helmet-async";
 
 const Details = () => {
-  const { user } = useContext(AuthContext);
+  const { user,setLoading } = useContext(AuthContext);
   const navigate = useNavigate();
   const movie = useLoaderData();
   const { _id, poster, movie_name, rating, year, summary, duration, genre } =
@@ -25,12 +25,14 @@ const Details = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
+        setLoading(true);
         fetch(`https://ph-assignment-10-server-gray.vercel.app/movies/${id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
           .then((data) => {
             if (data.deletedCount) {
+              setLoading(false);
               Swal.fire({
                 title: "Deleted!",
                 text: "Your file has been deleted.",
@@ -44,6 +46,7 @@ const Details = () => {
   };
 
   const handleAddToFavorite = () => {
+    setLoading(true);
     fetch(`https://ph-assignment-10-server-gray.vercel.app/favorites/`, {
       method: "POST",
       headers: {
@@ -64,6 +67,7 @@ const Details = () => {
     })
       .then((res) => res.json())
       .then((data) => {
+        setLoading(false);
         if (data.insertedId) {
           Swal.fire({
             title: "Favorite!",
