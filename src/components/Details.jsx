@@ -79,7 +79,7 @@ const Details = () => {
   };
 
   return (
-    <div className="flex justify-center flex-col gap-6 items-center min-h-screen bg-gradient-to-r from-purple-500 to-pink-500 p-6">
+    <div className="flex justify-center flex-col gap-6 items-center min-h-screen bg-gradient-to-r from-purple-500 to-pink-500 p-6 overflow-hidden">
       <Helmet>
         <title>Details || Estromus</title>
       </Helmet>
@@ -139,7 +139,7 @@ const Details = () => {
             <Link
               to={`/update/${_id}`}
               data-aos="fade-right"
-              className="btn join-item btn-info w-1/3"
+              className="btn join-item text-white btn-info w-1/3"
             >
               Update Movie
             </Link>
