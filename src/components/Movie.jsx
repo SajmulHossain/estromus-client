@@ -31,7 +31,7 @@ const Movie = ({ movie, setFavorite, allMovies }) => {
             );
             Swal.fire({
               title: "Deleted!",
-              text: "Your file has been deleted.",
+              text: "Your movie has deleted from favorite.",
               icon: "success",
             });
             setFavorite(remainingFav);

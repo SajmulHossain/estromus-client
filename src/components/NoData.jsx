@@ -4,7 +4,7 @@ const NoData = () => {
   return (
     <div className="flex justify-center items-center flex-col mt-20 gap-6">
       <h3
-        data-aos="fade-left"
+        data-aos="fade-down"
         className="font-bold text-3xl text-red-600 italic"
       >
         No Data Found
