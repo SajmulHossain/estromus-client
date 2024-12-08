@@ -32,13 +32,13 @@ const Details = () => {
           .then((res) => res.json())
           .then((data) => {
             if (data.deletedCount) {
+              navigate("/movies");
               setLoading(false);
               Swal.fire({
                 title: "Deleted!",
                 text: "Your file has been deleted.",
                 icon: "success",
               });
-              navigate("/movies");
             }
           });
       }
