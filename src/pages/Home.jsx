@@ -22,7 +22,7 @@ const Home = () => {
  } ,[])
 
   return (
-    <section>
+    <section className="my-4">
       <Helmet>
         <title>Home || Estromus</title>
       </Helmet>
