@@ -201,6 +201,7 @@ const AddMovies = () => {
                 <option value={"option"} disabled selected>
                   Select an option
                 </option>
+                <option>Action</option>
                 <option>Comedy</option>
                 <option>Drama</option>
                 <option>Horor</option>
