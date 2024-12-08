@@ -10,6 +10,8 @@ export default {
       },
     },
   },
+  darkMode: ['selector', '[data-theme="dark"]'],
+
   plugins: [daisyui],
   daisyui: {
     theme: ["light", "dark"],

@@ -206,7 +206,7 @@ const Header = () => {
           </div>
           <div>
             {user ? (
-              <button onClick={handleLogout} className="btn">
+              <button onClick={handleLogout} className="btn dark:outline dark:outline-gray-300 dark:hover:outline-none">
                 Log Out
               </button>
             ) : (
