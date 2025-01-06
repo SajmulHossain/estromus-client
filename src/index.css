@@ -10,7 +10,7 @@
     @apply dark:text-gray-200;
   }
 
-  section {
+  .section {
     @apply max-w-screen-xl mx-auto px-4 my-12 md:my-20;
   }
 

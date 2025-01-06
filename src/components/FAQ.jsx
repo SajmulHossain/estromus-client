@@ -3,7 +3,7 @@ import Heading from "./Heading";
 
 const FAQ = () => {
   return (
-    <section className="px-0">
+    <section className="section">
       <Heading
         head="Frequently Asked Questions (FAQ)"
         paragraph="Some common question from user"

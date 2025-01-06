@@ -135,8 +135,8 @@ const Header = () => {
     </>
   );
   return (
-    <header className="bg-violet-200 dark:bg-violet-950">
-      <section className="my-0">
+    <header className="bg-violet-200 dark:bg-violet-950 sticky top-0 z-50">
+      <section className="my-0 section">
         <nav className="navbar p-0 bg-transparent">
           <div className="navbar-start">
             <div className="dropdown">

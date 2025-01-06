@@ -22,13 +22,13 @@ const Home = () => {
  } ,[])
 
   return (
-    <section className="my-4">
+    <section>
       <Helmet>
         <title>Home || Estromus</title>
       </Helmet>
       <HomeSlider />
 
-      <section className="px-0">
+      <section className="section">
         <Heading head="Featured" paragraph="Explore highest rated movies" />
         {movies.length ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -41,7 +41,7 @@ const Home = () => {
         )}
       </section>
 
-      <section className="px-0">
+      <section className="section">
         <Heading head='Recent Movies' paragraph='Explore all recent movies' />
         {
           recentMovies.length ? <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

@@ -4,7 +4,7 @@ import { MdEmail } from "react-icons/md";
 const Footer = () => {
   return (
     <footer className="dark:bg-violet-950 bg-violet-200 pb-2 pt-12">
-      <section className="footer justify-between my-0 dark:text-gray-300 text-base-content mb-12">
+      <section className="footer section justify-between my-0 dark:text-gray-300 text-base-content mb-12">
         <aside>
           <h3 className="font-bold text-2xl">Estromus </h3>
           <p className="italic">Providing reliable movie since 2024</p>
