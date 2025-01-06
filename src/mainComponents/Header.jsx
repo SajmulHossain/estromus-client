@@ -73,26 +73,30 @@ const Header = () => {
           All Movies
         </NavLink>
       </li>
-      <li>
-        <NavLink
-          className={({ isActive, isPending }) =>
-            isPending ? "pending" : isActive ? "active1" : ""
-          }
-          to="/add_movies"
-        >
-          Add Movies
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          className={({ isActive, isPending }) =>
-            isPending ? "pending" : isActive ? "active1" : ""
-          }
-          to="/favorites"
-        >
-          My Favorites
-        </NavLink>
-      </li>
+      {user && (
+        <>
+          <li>
+            <NavLink
+              className={({ isActive, isPending }) =>
+                isPending ? "pending" : isActive ? "active1" : ""
+              }
+              to="/add_movies"
+            >
+              Add Movies
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              className={({ isActive, isPending }) =>
+                isPending ? "pending" : isActive ? "active1" : ""
+              }
+              to="/favorites"
+            >
+              My Favorites
+            </NavLink>
+          </li>
+        </>
+      )}
       <li>
         <NavLink
           className={({ isActive, isPending }) =>
