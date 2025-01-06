@@ -5,6 +5,7 @@ import { useContext, useEffect } from "react";
 import { AuthContext } from "./contextProvider/AuthProvider";
 import Aos from "aos";
 import "aos/dist/aos.css";
+import BackToTop from "./components/BackToTop";
 
 function App() {
 
@@ -34,6 +35,7 @@ function App() {
         <Outlet />
       </main>
       <Footer />
+      <BackToTop />
     </>
   );
 }
