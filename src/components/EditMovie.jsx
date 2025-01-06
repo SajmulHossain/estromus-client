@@ -50,11 +50,11 @@ const EditMovie = () => {
     }
   })
 
-  const { _id, movie_name, poster, genre, duration, rating, summary, year } = movie || {};
+  const { _id, movie_name, poster, genre, duration, rating, summary, year } = movie;
 
   const [newRating, setNewRating] = useState(rating);
-
   const [error, setError] = useState('');
+
 
   const handleRating = value => {
     setNewRating(value);
@@ -154,7 +154,7 @@ const EditMovie = () => {
       summary,
       year,
       author: {
-        email: user.email,
+        email: user?.email,
       },
     };
 
@@ -346,7 +346,7 @@ const EditMovie = () => {
                 <textarea
                   type="text"
                   placeholder="Summary"
-                  className={`input py-3 input-bordered ${
+                  className={`textarea py-3 textarea-bordered ${
                     error.summary ? "border-red-500" : ""
                   }`}
                   name="summary"
