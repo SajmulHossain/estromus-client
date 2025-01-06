@@ -96,7 +96,9 @@ const Details = () => {
         <title>Details || Estromus</title>
       </Helmet>
       {isLoading ? (
-        <div className="flex justify-center items-center h-96"><DataLoading /></div>
+        <div className="flex justify-center items-center h-96">
+          <DataLoading />
+        </div>
       ) : (
         <div className="max-w-lg w-full bg-white rounded-lg overflow-hidden dark:bg-violet-950 dark:text-gray-200">
           <div data-aos="fade-down-right" className="relative">
@@ -158,16 +160,18 @@ const Details = () => {
                 Update Movie
               </Link>
               <button
+                disabled={!user}
                 data-aos="fade-up"
                 onClick={() => handleMovieDelele(_id)}
-                className="btn join-item btn-warning w-1/3 bg-red-500 text-white hover:text-black"
+                className="btn disabled:dark:bg-gray-400 disabled:dark:text-gray-500 join-item btn-warning w-1/3 bg-red-500 text-white hover:text-black"
               >
                 Delete Movie
               </button>
               <button
+                disabled={!user}
                 data-aos="fade-left"
                 onClick={handleAddToFavorite}
-                className="btn join-item  w-1/3 btn-success text-white"
+                className="btn join-item disabled:dark:bg-gray-400 disabled:dark:text-gray-500 w-1/3 btn-success text-white"
               >
                 Add to Favorite
               </button>
