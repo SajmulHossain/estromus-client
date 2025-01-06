@@ -21,8 +21,6 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
-        loader: () =>
-          fetch("https://ph-assignment-10-server-gray.vercel.app/featured"),
       },
       {
         path: "/movies",

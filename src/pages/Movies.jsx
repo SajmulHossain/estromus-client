@@ -1,28 +1,29 @@
 import { useState } from "react";
-import { useLoaderData } from "react-router-dom";
 import Movie from "../components/Movie";
 import Heading from "../components/Heading";
 import NoData from "../components/NoData";
 import { Helmet } from "react-helmet-async";
+import { useQuery } from "@tanstack/react-query";
+import { customAxios } from "../hooks/useCustomAxios";
+import DataLoading from "../components/DataLoading";
 
 const Movies = () => {
-  const data = useLoaderData();
-
-  const [movies, setMovies] = useState(data);
+  const [search, setSearch] = useState('');
+  const {data:movies = [], refetch,isLoading } = useQuery({
+    queryKey: ['movies'],
+    queryFn: async () => {
+      const { data } = await customAxios.get(`/movies?queryText=${search}`);
+      return data;
+    }
+  })
 
   const handleSearch = e => {
     const value = e.target.value;
-
-    fetch(
-      `https://ph-assignment-10-server-gray.vercel.app/movies?queryText=${value}`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setMovies(data);
-      });
+    setSearch(value);
+    refetch();
   }
   return (
-    <section>
+    <section className="section">
       <Helmet>
         <title>Movies || Estromus</title>
       </Helmet>
@@ -30,7 +31,12 @@ const Movies = () => {
 
       <div className="flex justify-center my-8 max-w-screen-md mx-auto">
         <label className="input input-bordered border-violet-600 w-full flex items-center gap-2">
-          <input type="text" onChange={handleSearch} className="w-full" placeholder="Search" />
+          <input
+            type="text"
+            onChange={handleSearch}
+            className="w-full"
+            placeholder="Search"
+          />
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 16 16"
@@ -45,14 +51,22 @@ const Movies = () => {
           </svg>
         </label>
       </div>
-      {movies.length ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {movies.map((movie) => (
-            <Movie key={movie._id} setMovies={setMovies} movie={movie} />
-          ))}
+      {isLoading ? (
+        <div className="flex justify-center items-center h-96">
+          <DataLoading />
         </div>
       ) : (
-        <NoData />
+        <>
+          {movies.length ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {movies.map((movie) => (
+                <Movie key={movie._id} movie={movie} />
+              ))}
+            </div>
+          ) : (
+            <NoData />
+          )}
+        </>
       )}
     </section>
   );

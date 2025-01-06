@@ -3,7 +3,7 @@ import Heading from "../components/Heading";
 
 const About = () => {
   return (
-    <section>
+    <section className="section">
       <Helmet>
         <title>About || Estromus</title>
       </Helmet>

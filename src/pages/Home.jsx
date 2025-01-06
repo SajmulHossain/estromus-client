@@ -1,25 +1,31 @@
-import { useLoaderData } from "react-router-dom";
 import HomeSlider from "../components/HomeSlider";
 import Movie from "../components/Movie";
 import Heading from "../components/Heading";
 import NoData from "../components/NoData";
-import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import FAQ from "../components/FAQ";
-
+import { useQuery } from "@tanstack/react-query";
+import DataLoading from "../components/DataLoading";
+import { customAxios } from "../hooks/useCustomAxios";
 
 const Home = () => {
- const movies = useLoaderData();
- const [recentMovies, setRecentMovies] = useState([]);
+  const { data: movies = [], isLoading:featuredLoading } = useQuery({
+    queryKey: ["featured-movies"],
+    queryFn: async () => {
+      const { data } = await customAxios.get("/featured");
+      return data;
+    },
+  });
+
+  const { data: recentMovies = [], isLoading:recentMoviesLoading } = useQuery({
+    queryKey: ["recent movies"],
+    queryFn: async () => {
+      const { data } = await customAxios.get("/recent");
+      return data;
+    },
+  });
 
 
- useEffect(() => {
-  fetch("https://ph-assignment-10-server-gray.vercel.app/recent")
-  .then(res => res.json())
-  .then(data => {
-    setRecentMovies(data);
-  })
- } ,[])
 
   return (
     <section>
@@ -30,24 +36,44 @@ const Home = () => {
 
       <section className="section">
         <Heading head="Featured" paragraph="Explore highest rated movies" />
-        {movies.length ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {movies.map((movie) => (
-              <Movie key={movie._id} movie={movie} />
-            ))}
-          </div>
+        {!featuredLoading ? (
+          <>
+            {movies.length ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {movies.map((movie) => (
+                  <Movie key={movie._id} movie={movie} />
+                ))}
+              </div>
+            ) : (
+              <NoData />
+            )}
+          </>
         ) : (
-          <NoData />
+          <div className="min-h-96 flex justify-center items-center">
+            <DataLoading />
+          </div>
         )}
       </section>
 
       <section className="section">
-        <Heading head='Recent Movies' paragraph='Explore all recent movies' />
-        {
-          recentMovies.length ? <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {recentMovies.map(movie => <Movie key={movie._id} movie={movie} />)}
-          </div> : <NoData />
-        }
+        <Heading head="Recent Movies" paragraph="Explore all recent movies" />
+        {!recentMoviesLoading ? (
+          <>
+            {recentMovies.length ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {recentMovies.map((movie) => (
+                  <Movie key={movie._id} movie={movie} />
+                ))}
+              </div>
+            ) : (
+              <NoData />
+            )}
+          </>
+        ) : (
+          <div className="min-h-96 flex justify-center items-center">
+            <DataLoading />
+          </div>
+        )}
       </section>
 
       <FAQ />
