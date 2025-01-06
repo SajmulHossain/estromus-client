@@ -25,8 +25,6 @@ const router = createBrowserRouter([
       {
         path: "/movies",
         element: <Movies />,
-        loader: () =>
-          fetch("https://ph-assignment-10-server-gray.vercel.app/movies"),
       },
       {
         path: "/add_movies",
@@ -59,14 +57,8 @@ const router = createBrowserRouter([
       {
         path: "/details/:id",
         element: (
-          <PrivetRoute>
             <Details />
-          </PrivetRoute>
         ),
-        loader: ({ params }) =>
-          fetch(
-            `https://ph-assignment-10-server-gray.vercel.app/movies/${params.id}`
-          ),
       },
       {
         path: "/update/:id",
@@ -75,10 +67,6 @@ const router = createBrowserRouter([
             <EditMovie />
           </PrivetRoute>
         ),
-        loader: ({ params }) =>
-          fetch(
-            `https://ph-assignment-10-server-gray.vercel.app/movies/${params.id}`
-          ),
       },
     ],
   },

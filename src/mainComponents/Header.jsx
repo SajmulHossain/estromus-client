@@ -196,6 +196,7 @@ const Header = () => {
             <div className="group relative cursor-pointer">
               {user ? (
                 <img
+                referrerPolicy="no-referrer"
                   src={user?.photoURL}
                   className="h-10 w-10 rounded-full"
                   alt={`${user.displayName}'s photo`}

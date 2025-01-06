@@ -52,7 +52,7 @@ const Movie = ({ movie, setFavorite, allMovies }) => {
       <div data-aos="fade-down">
         <img
           src={poster}
-          className="rounded-md w-full h-[250px] md:h-[300px] object-cover"
+          className="rounded-md w-full h-[200px] md:h-[200px] object-cover"
           alt={`${movie_name}'s poster`}
         />
       </div>
@@ -61,7 +61,7 @@ const Movie = ({ movie, setFavorite, allMovies }) => {
         <h3 className="font-bold text-2xl">{movie_name}</h3>
       </div>
 
-      <div className="flex gap-6 items-center mb-2 mt-4">
+      <div className="flex gap-x-6 gap-y-2 flex-wrap items-center mb-2 mt-4">
         <p>
           <span className="font-medium">Released: </span>
           <span className="text-gray-500 dark:text-violet-400">{year}</span>
@@ -84,10 +84,7 @@ const Movie = ({ movie, setFavorite, allMovies }) => {
         </p>
       </div>
 
-      <div className="mt-4 flex items-center gap-4">
-        <p className=" text-xl font-semibold">
-          Rating :{" "}
-        </p>
+      <div className="mt-4">
         <div className="flex items-center gap-2">
           <Rating
             className="text-3xl flex items-center"

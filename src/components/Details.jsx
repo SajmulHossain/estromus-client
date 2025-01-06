@@ -2,15 +2,27 @@ import { useContext } from "react";
 import { CiStar } from "react-icons/ci";
 import { IoIosStar } from "react-icons/io";
 import Rating from "react-rating";
-import { Link, useLoaderData, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../contextProvider/AuthProvider";
 import { Helmet } from "react-helmet-async";
+import { useQuery } from "@tanstack/react-query";
+import { customAxios } from "../hooks/useCustomAxios";
+import DataLoading from "./DataLoading";
 
 const Details = () => {
   const { user,setLoading } = useContext(AuthContext);
+  const { id } = useParams();
   const navigate = useNavigate();
-  const movie = useLoaderData();
+  const {data:movie={}, isLoading} = useQuery({
+    queryKey: [`movies-${id}`],
+    queryFn: async () => {
+      const { data } = await customAxios.get(
+        `https://ph-assignment-10-server-gray.vercel.app/movies/${id}`
+      );
+      return data;
+    }
+  })
   const { _id, poster, movie_name, rating, year, summary, duration, genre } =
     movie;
 
@@ -83,83 +95,86 @@ const Details = () => {
       <Helmet>
         <title>Details || Estromus</title>
       </Helmet>
-      <div className="max-w-lg w-full bg-white rounded-lg overflow-hidden dark:bg-violet-950 dark:text-gray-200">
-        <div data-aos="fade-down-right" className="relative">
-          <img
-            src={poster}
-            alt={`${movie_name}'s poster`}
-            className="w-full h-72 object-cover"
-          />
-          <div className="absolute top-4 left-4 bg-black text-white text-sm px-3 py-1 rounded-lg flex items-center gap-1">
-            {rating} <IoIosStar size={16} />
-          </div>
-        </div>
-
-        <div className="p-4">
-          <h2 data-aos="fade-left" className="text-3xl font-bold mb-4">
-            {movie_name}
-          </h2>
-          <div className="flex gap-6 items-center text-sm mb-6">
-            <p>
-              <span className="font-medium">Released: </span>
-              <span className="text-gray-600 dark:text-gray-300">{year}</span>
-            </p>
-            <p>
-              <span className="font-medium">Duration: </span>
-              <span className="text-gray-600 dark:text-gray-300">
-                {parseInt(duration / 60)}h {duration % 60}m
-              </span>
-            </p>
-          </div>
-
-          <div className="flex items-center gap-2 mb-6">
-            <Rating
-              className="text-2xl"
-              readonly
-              emptySymbol={<CiStar className="text-yellow-500" />}
-              fullSymbol={<IoIosStar className="text-yellow-500" />}
-              initialRating={rating}
+      {isLoading ? (
+        <div className="flex justify-center items-center h-96"><DataLoading /></div>
+      ) : (
+        <div className="max-w-lg w-full bg-white rounded-lg overflow-hidden dark:bg-violet-950 dark:text-gray-200">
+          <div data-aos="fade-down-right" className="relative">
+            <img
+              src={poster}
+              alt={`${movie_name}'s poster`}
+              className="w-full h-72 object-cover"
             />
-            <span className="text-lg text-yellow-500 font-semibold">
-              ({rating})
-            </span>
+            <div className="absolute top-4 left-4 bg-black text-white text-sm px-3 py-1 rounded-lg flex items-center gap-1">
+              {rating} <IoIosStar size={16} />
+            </div>
           </div>
 
-          <div className="mb-6 flex gap-4 items-center">
-            <h3 className="text-lg font-semibold">Genre:</h3>
-            <p className="px-3 py-1 bg-violet-200 text-violet-900 text-sm font-medium rounded-full"
-            >
-              {genre}
-            </p>
-          </div>
+          <div className="p-4">
+            <h2 data-aos="fade-left" className="text-3xl font-bold mb-4">
+              {movie_name}
+            </h2>
+            <div className="flex gap-6 items-center text-sm mb-6">
+              <p>
+                <span className="font-medium">Released: </span>
+                <span className="text-gray-600 dark:text-gray-300">{year}</span>
+              </p>
+              <p>
+                <span className="font-medium">Duration: </span>
+                <span className="text-gray-600 dark:text-gray-300">
+                  {parseInt(duration / 60)}h {duration % 60}m
+                </span>
+              </p>
+            </div>
 
-          <p className="text-sm mb-8">{summary}</p>
+            <div className="flex items-center gap-2 mb-6">
+              <Rating
+                className="text-2xl"
+                readonly
+                emptySymbol={<CiStar className="text-yellow-500" />}
+                fullSymbol={<IoIosStar className="text-yellow-500" />}
+                initialRating={rating}
+              />
+              <span className="text-lg text-yellow-500 font-semibold">
+                ({rating})
+              </span>
+            </div>
 
-          <div className="flex justify-between join">
-            <Link
-              to={`/update/${_id}`}
-              data-aos="fade-right"
-              className="btn join-item text-white btn-info w-1/3"
-            >
-              Update Movie
-            </Link>
-            <button
-              data-aos="fade-up"
-              onClick={() => handleMovieDelele(_id)}
-              className="btn join-item btn-warning w-1/3 bg-red-500 text-white hover:text-black"
-            >
-              Delete Movie
-            </button>
-            <button
-              data-aos="fade-left"
-              onClick={handleAddToFavorite}
-              className="btn join-item  w-1/3 btn-success text-white"
-            >
-              Add to Favorite
-            </button>
+            <div className="mb-6 flex gap-4 items-center">
+              <h3 className="text-lg font-semibold">Genre:</h3>
+              <p className="px-3 py-1 bg-violet-200 text-violet-900 text-sm font-medium rounded-full">
+                {genre}
+              </p>
+            </div>
+
+            <p className="text-sm mb-8">{summary}</p>
+
+            <div className="flex justify-between join">
+              <Link
+                to={`/update/${_id}`}
+                data-aos="fade-right"
+                className="btn join-item text-white btn-info w-1/3"
+              >
+                Update Movie
+              </Link>
+              <button
+                data-aos="fade-up"
+                onClick={() => handleMovieDelele(_id)}
+                className="btn join-item btn-warning w-1/3 bg-red-500 text-white hover:text-black"
+              >
+                Delete Movie
+              </button>
+              <button
+                data-aos="fade-left"
+                onClick={handleAddToFavorite}
+                className="btn join-item  w-1/3 btn-success text-white"
+              >
+                Add to Favorite
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      )}
       <Link
         data-aos="fade-down-left"
         to="/movies"
