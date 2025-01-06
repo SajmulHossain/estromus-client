@@ -1,5 +1,6 @@
 import { FaPhoneAlt } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -10,6 +11,11 @@ const Footer = () => {
           <p className="italic">Providing reliable movie since 2024</p>
         </aside>
 
+        <nav>
+          <h6 className="footer-title">Important Links</h6>
+          <Link className="text-gray-600 dark:text-gray-300" to='/about'>About Us</Link>
+          <Link className="text-gray-600 dark:text-gray-300" to='/movies'>Movies</Link>
+        </nav>
         <nav>
           <h6 className="footer-title">Contact</h6>
           <p className="flex items-center gap-2">

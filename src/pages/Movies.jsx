@@ -9,14 +9,20 @@ import DataLoading from "../components/DataLoading";
 
 const Movies = () => {
   const [search, setSearch] = useState('');
+  const [sort, setSort] = useState('');
+
+  
+  
+  
+  
   const {data:movies = [], refetch,isLoading } = useQuery({
-    queryKey: ['movies'],
+    queryKey: ['movies', sort, search],
     queryFn: async () => {
-      const { data } = await customAxios.get(`/movies?queryText=${search}`);
+      const { data } = await customAxios.get(`/movies?queryText=${search}&sort=${sort}`);
       return data;
     }
   })
-
+  
   const handleSearch = e => {
     const value = e.target.value;
     setSearch(value);
@@ -29,7 +35,7 @@ const Movies = () => {
       </Helmet>
       <Heading head="Movies" paragraph="Explore all movies" />
 
-      <div className="flex justify-center my-8 max-w-screen-md mx-auto">
+      <div className="flex gap-4 justify-center my-8 max-w-screen-md mx-auto">
         <label className="input input-bordered border-violet-600 w-full flex items-center gap-2">
           <input
             type="text"
@@ -50,6 +56,18 @@ const Movies = () => {
             />
           </svg>
         </label>
+
+        <select
+          defaultValue=""
+          onChange={(e) => setSort(e.target.value)}
+          className="select select-bordered border-violet-600 w-full max-w-xs"
+        >
+          <option value="">
+            Sort by Duration
+          </option>
+          <option value='asc'>Ascending</option>
+          <option value='dsc'>Descending</option>
+        </select>
       </div>
       {isLoading ? (
         <div className="flex justify-center items-center h-96">
