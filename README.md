@@ -12,8 +12,8 @@ Estromus is a fully-featured movie portal that allows users to browse, add, and 
 
 ## Core Features
 - User authentication (Sign up, Login, Logout)
--Add Movie
--Edit Movie Details
+- Add Movie
+- Edit Movie Details
 - Responsive and user-friendly UI
 
 ## Dependencies
