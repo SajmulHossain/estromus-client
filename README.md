@@ -40,22 +40,21 @@ Estromus is a fully-featured movie portal that allows users to browse, add, and 
 3. **Set up environment variables:**
    Create a `.env` file in the root directory and add:
    ```env
-   REACT_APP_FIREBASE_API_KEY=your_api_key
-   REACT_APP_FIREBASE_AUTH_DOMAIN=your_auth_domain
-   REACT_APP_BACKEND_URL=http://localhost:5000
+    VITE_apiKey = AIzaSyCrGxq4owJ2iTTXEaV0FqJIj6sjlbkOoJA
+   VITE_authDomain = your-domain
+   VITE_projectId = your-project-id
+   VITE_storageBucket = your-firebase-storageBucket
+   VITE_messagingSenderId = your-messageSenderId
+   VITE_appId = your-app-id
+   VITE_measurementId = your-measurement-id
+
+   VITE_imgBB_api = your-imgBB-api-key
+   # VITE_api_url = http://localhost:3000
+   VITE_api_url = your-live-link
+
+   VITE_stripe_public_key = your-stripe-key
    ```
 
-4. **Start the backend server:**
-   ```bash
-   cd backend
-   npm install
-   node server.js
-   ```
-
-5. **Start the frontend:**
-   ```bash
-   npm start
-   ```
 
 6. Open `http://localhost:3000` in your browser.
 
