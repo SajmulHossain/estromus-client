@@ -1,7 +1,7 @@
 # Estromus
 
 ## Overview
-Estromus is a cutting-edge web application designed to streamline task management and payments. This platform connects employers with freelancers, ensuring efficient task completion with instant payments and a secure system.
+Estromus is a fully-featured movie portal that allows users to browse, add, and manage movies efficiently. Built using React and Node.js, it provides a secure and seamless experience for users.
 
 ## Technologies Used
 - React.js
@@ -12,9 +12,8 @@ Estromus is a cutting-edge web application designed to streamline task managemen
 
 ## Core Features
 - User authentication (Sign up, Login, Logout)
-- Task creation and management
-- Secure payment processing
-- Real-time notifications
+-Add Movie
+-Edit Movie Details
 - Responsive and user-friendly UI
 
 ## Dependencies
@@ -29,7 +28,7 @@ Estromus is a cutting-edge web application designed to streamline task managemen
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/your-username/estromus.git
+   git clone https://github.com/sajmulhossain/estromus-client.git
    cd estromus
    ```
 
